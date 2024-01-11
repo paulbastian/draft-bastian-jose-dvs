@@ -3,7 +3,7 @@ title: "JOSE algorithms for ECDH-MAC-based signatures"
 abbrev: "ECDH-MAC for JOSE"
 category: info
 
-docname: bastian-jose-alg-ecdh-mac-latest
+docname: draft-bastian-jose-alg-ecdh-mac-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
