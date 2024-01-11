@@ -19,8 +19,8 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "JOSE algorithms for ECDH-MAC-based signatures"
+abbrev: "ECDH-MAC for JOSE"
 category: info
 
 docname: draft-todo-yourname-protocol-latest
@@ -45,9 +45,9 @@ venue:
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Paul Bastian
+    organization: Bundesdruckerei GmbH
+    email: paul.bastian@bdr.de
 
 normative:
 
