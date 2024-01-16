@@ -138,7 +138,8 @@ The "kid" (key identifier) value is created by the Generating Party for the use 
 ## Example JWT
 
 The JWT/JWS header:
-```
+
+~~~
 {
     "typ" : "JWT",
     "alg" : "ECDH-P256-HS256",
@@ -146,22 +147,24 @@ The JWT/JWS header:
     "epk" : <JWK used for ECDH>,
     "kid" : <key ID of Verifying Party>
 }
-```
+~~~
 
 The JWT/JWS payload:
-```
+
+~~~
 {
     "iss" : "https://example.as.com",
     "iat" : "1701870613",
     "given_name" : "Erika",
     "family_name" : "Mustermann"
 }
-```
+~~~
 
 The JWT/JWS signature:
-```
+
+~~~
 base64-encoded MAC
-```
+~~~
 
 # Security Considerations
 
