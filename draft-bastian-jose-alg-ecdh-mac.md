@@ -109,17 +109,21 @@ The verification of ECDH-based MAC follows these steps:
 ## Header parameter "alg"
 
 The following values MUST be used for the "alg" header parameter:
-```
-+------------------+--------------------------------+-----------------+
-| Algorithm Name   | Algorithm Explanation          | Implementation  |
-|                  |                                | Requirements    |
-+------------------+--------------------------------+-----------------+
-| ECDH-P256-HS256  | ECDH using NIST P-256 and      | Optional        |
-|                  | HMAC using SHA-256             |                 |
-| ECDH-BP256-HS256 | ECDH using BrainpoolP256r1 and | Optional        |
-|                  | HMAC using SHA-256             |                 |
-+------------------+--------------------------------+-----------------+
-```
+
+~~~ ascii-art
++--------------------+--------------------------------+----------------+
+| Algorithm Name     | Algorithm Explanation          | Implementation |
+|                    |                                | Requirements   |
++--------------------+--------------------------------+----------------+
+| ECDH-P256-CC-HS256 | ECDH using NIST P-256,         | Optional       |
+|                    | ConcatKDF and                  |                |
+|                    | HMAC using SHA-256             |                |
+| ECDH-BP256-CC-HS256| ECDH using BrainpoolP256r1,    | Optional       |
+|                    | ConcatKDF and                  |                |
+|                    | HMAC using SHA-256             |                |
++--------------------+--------------------------------+----------------+
+~~~
+
 Other algorithms SHOULD follow the naming `ECDH-<elliptic curve domain parameters>-<KD algorithm>-<MAC algorithm>`.
 
 ## Header parameter "epk"
