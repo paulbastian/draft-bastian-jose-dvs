@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "JOSE algorithms for ECDH-MAC-based signatures".
 
-* [Editor's Copy](https://paulbastian.github.io/paulbastian-jose-ecdh-mac-algorithms/#go.draft-bastian-jose-alg-ecdh-mac.html)
+* [Editor's Copy](https://paulbastian.github.io/jose-ecdh-mac-algorithms/#go.draft-bastian-jose-alg-ecdh-mac.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-bastian-jose-alg-ecdh-mac)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-bastian-jose-alg-ecdh-mac)
-* [Compare Editor's Copy to Individual Draft](https://paulbastian.github.io/paulbastian-jose-ecdh-mac-algorithms/#go.draft-bastian-jose-alg-ecdh-mac.diff)
+* [Compare Editor's Copy to Individual Draft](https://paulbastian.github.io/jose-ecdh-mac-algorithms/#go.draft-bastian-jose-alg-ecdh-mac.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/paulbastian/paulbastian-jose-ecdh-mac-algorithms/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/paulbastian/jose-ecdh-mac-algorithms/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
