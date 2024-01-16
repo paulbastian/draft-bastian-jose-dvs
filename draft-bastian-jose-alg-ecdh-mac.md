@@ -27,7 +27,7 @@ author:
  -
     fullname: Paul Bastian
     organization: Bundesdruckerei GmbH
-    email: paul.bastian@bdr.de
+    email: bastianpaul@googlemail.com
 
 normative:
   RFC7517: RFC7517
