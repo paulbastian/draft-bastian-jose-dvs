@@ -30,6 +30,7 @@ author:
     email: bastianpaul@googlemail.com
 
 normative:
+  RFC7515: RFC7515
   RFC7517: RFC7517
   RFC7518: RFC7518
 
