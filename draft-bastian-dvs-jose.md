@@ -20,8 +20,8 @@ venue:
   type: "Working Group"
   mail: "jose@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/jose/"
-  github: "paulbastian/paulbastian-jose-ecdh-mac-algorithms"
-  latest: "https://paulbastian.github.io/paulbastian-jose-ecdh-mac-algorithms/draft-bastian-jose-alg-ecdh-mac.html"
+  github: "paulbastian/draft-bastian-dvs-jose"
+  latest: "https://paulbastian.github.io/draft-bastian-dvs-jose/draft-bastian-dvs-jose.html"
 
 author:
  -
