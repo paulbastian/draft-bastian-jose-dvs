@@ -3,7 +3,7 @@ title: "Designated Verifier Signatures for JOSE"
 abbrev: "DVS for JOSE"
 category: info
 
-docname: draft-bastian-dvs-jose
+docname: draft-bastian-dvs-jose-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
