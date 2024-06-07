@@ -59,7 +59,7 @@ This algorithm is intended for use with digital credentials ecosystems, includin
 
 # Terminology
 
-The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by {{7515}}.
+The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by {{RFC7515}}.
 
 Signing Party:
 : The Party that performs the key agreement first and generates the MAC. Similar to a Signer.
@@ -98,7 +98,7 @@ The generation of the signature follows these steps:
   - derive the MAC key
 3. Generate a MAC as defined by MAC algorithm
   - use the output from the key derivation algorithm as an input for the MAC algorithm
-  - use the `JWS Signing Input` as defined in Section 5.1 if {{7515}} as the `message` input for the MAC algorithm
+  - use the `JWS Signing Input` as defined in Section 5.1 if {{RFC7515}} as the `message` input for the MAC algorithm
   - generate the MAC
 
 The verification of signature follows these steps:
@@ -118,7 +118,7 @@ The verification of signature follows these steps:
 
 # Designated Verifier Signatures for JOSE
 
-Designated Verifier Signatures behave like a digital signature as described in Section 3 of {{7518}} and are intended for use in JSON Web Signatures (JWS) as described in {{7515}}. The Generating Party performs the `Message Signature or MAC Computation` as defined by Section 5.1 of {{7515}}. The Verifying Party performs the `Message Signature or MAC Validation` as defined by Section 5.2 of {{7515}}.
+Designated Verifier Signatures behave like a digital signature as described in Section 3 of {{RFC7518}} and are intended for use in JSON Web Signatures (JWS) as described in {{RFC7515}}. The Generating Party performs the `Message Signature or MAC Computation` as defined by Section 5.1 of {{RFC7515}}. The Verifying Party performs the `Message Signature or MAC Validation` as defined by Section 5.2 of {{RFC7515}}.
 
 The following JWS headers are used to convey Designated Verifier Signatures for JOSE:
 
