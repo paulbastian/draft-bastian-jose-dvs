@@ -49,7 +49,7 @@ Designated verifier signatures (DVS) are signature schemes in which signatures a
 
 This specification describes a general structure for designated verifier signature schemes and specified a set of instantiations that use a combination of an ECDH key exchange with an HMAC.
 
-This specification and all described algorithms should respect the efforts for Fully Specified Algorithms (https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html).
+This specification and all described algorithms should respect the efforts for (Fully Specified Algorithms)[https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html].
 
 This algorithm is intended for use with digital credentials ecosystems, including the Issuer-Holder-Verifier model described by W3C VCDM or IETF SD-JWT-VC.
 
@@ -71,7 +71,11 @@ Verifying Party:
 
 DVS uses the following notation:
 
+TODO
+
 DVS rely on the following primitives:
+
+TODO
 
 # Designates Verifier Signatures
 
