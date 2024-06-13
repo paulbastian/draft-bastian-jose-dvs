@@ -29,6 +29,10 @@ author:
     organization: Bundesdruckerei GmbH
     email: bastianpaul@googlemail.com
 
+ -
+    fullname: Micha Kraus
+    organization: Bundesdruckerei GmbH
+
 normative:
   RFC7515: RFC7515
   RFC7517: RFC7517
