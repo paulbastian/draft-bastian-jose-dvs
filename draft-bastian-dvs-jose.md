@@ -77,7 +77,7 @@ DVS rely on the following primitives:
 
 TODO
 
-# Designates Verifier Signatures
+# Designated Verifier Signatures
 
 A designated verifier signature requires three components for an algorithm:
 
@@ -119,6 +119,47 @@ The verification of signature follows these steps:
   - use the output from the key derivation algorithm as an input for the MAC algorithm
   - generate the MAC
 4. Compare the generated MAC with the signature value
+
+
+
+# Designated Verifier Signatures using HPKE
+
+
+## Signature Generation
+
+Input:
+
+ * `skS`: private key of the Signing Party
+ * `pkR`: public key of the Verifying Party
+ * `msg`: JWS Signing Input
+
+Steps:
+
+1. Call (`enc`, `ct`) = `SealAuth(pkR, info, aad, pt, skS)` with
+   * `info` = ""
+   * `aad` = `msg`
+   * `pt` = ""
+2. JWS Signature is the octet string concatenation of (`enc` \|\| `ct`)
+
+## Signature Verification
+
+Input:
+
+ * `skR`: private key of the Verifying Party
+ * `pkS`: public key of the Signing Party
+ * `msg`: JWS Signing Input
+ * `signature`: JWS Signature octet string
+
+Steps:
+
+1. Decode (`enc` \|\| `ct`) = `signature` by length of `enc` and `ct`
+2. Call `pt` = `OpenAuth(enc, skR, info, aad, ct, pkS)` with
+   * `info` = ""
+   * `aad` = msg
+3. the signature is valid, when `OpenAuth()` returns `pt` = "" with no authentication exception
+
+NOTE: `ct` contains only a tag. It's length depends on the AEAD algorithm (see Nt values in RFC9180 chapter 7.3.)
+
 
 # Designated Verifier Signatures for JOSE
 
@@ -175,7 +216,18 @@ This specification described instantiations of Designated Verifier Signatures us
 | DVS-P256-SHA256-HS256 | ECDH using NIST P-256,      | Optional       |
 |                       | HKDF using SHA-256 and      |                |
 |                       | HMAC using SHA-256          |                |
-+--------------------+--------------------------------+----------------+
++-----------------------+-----------------------------+----------------+
+| DVS-HPKE-Auth-X25519  | DVS based on HPKE using     |                |
+| -SHA256               | DHKEM(X25519, HKDF-SHA256)  |   Optional     |
+| -ChaCha20Poly1305     | HKDF-SHA256 KDF and         |                |
+|                       | ChaCha20Poly1305 AEAD       |                |
++-----------------------+-----------------------------+----------------+
+| DVS-HPKE-Auth-P256    | DVS based on HPKE using     |                |
+| -SHA256-AES128GCM     | DHKEM(P-256, HKDF-SHA256)   |   Optional     |
+|                       | HKDF-SHA256 KDF and         |                |
+|                       | AES-128-GCM AEAD            |                |
++-----------------------+-----------------------------+----------------+
+
 ~~~
 
 # Security Considerations
