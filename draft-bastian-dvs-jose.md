@@ -86,8 +86,23 @@ DVS uses the following notation:
 TODO
 
 DVS rely on the following primitives:
+- A Diffie-Hellman Key Agreement (DHKA)
+    - `DH(skX, pkY)`: Perform a non-interactive Diffie-Hellman exchange using the private key `skX` and public key `pkY` to produce a Diffie-Hellman shared secret of length Ndh. This function can raise a ValidationError.
+    - `Ndh`: The length in bytes of a Diffie-Hellman shared secret produced by `DH()`.
+    - `Nsk`: The length in bytes of a Diffie-Hellman private key.
 
-TODO
+- A key derivation function (KDF):
+    - `Extract(salt, ikm)`: Extract a pseudorandom key of fixed length Nh bytes from input keying material `ikm` and an optional byte string `salt`.
+    - `Expand(prk, info, L)`: Expand a pseudorandom key `prk` using optional string `info` into `L` bytes of output keying material.
+    - `Nh`: The output size of the Extract() function in bytes.
+
+- A Message Authentication Code algorithm (MAC)
+    - `Sign(k, i)`: Returns a authenticated tag for the given input `i` and shared key `k`.
+
+- A HPKE algorithm (for the HPKE variants):
+    - `SealAuth(pkR, info, aad, pt, skS)`: encrypts and authenticates single plaintext `pt` with associated data `aad` and context `info` using a private sender key `skS` and public receiver key `pkR`.
+    - `OpenAuth(enc, skR, info, aad, ct, pkS)`: decrypts cybertext and tag `ct` with associated data `aad` and context `info` using a private receiver key `skR` and public sender key `pkS`.
+
 
 # Designated Verifier Signatures
 
