@@ -12,9 +12,10 @@ v: 3
 area: "Security"
 workgroup: "Javascript Object Signing and Encryption"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - JOSE
+ - JWS
+ - designated verifier signature
+ - HPKE
 venue:
   group: "Javascript Object Signing and Encryption"
   type: "Working Group"
@@ -29,12 +30,23 @@ author:
     organization: Bundesdruckerei GmbH
     email: bastianpaul@googlemail.com
 
+ -
+    fullname: Micha Kraus
+    organization: Bundesdruckerei GmbH
+
 normative:
   RFC7515: RFC7515
   RFC7517: RFC7517
   RFC7518: RFC7518
+  RFC9180: RFC9180
 
 informative:
+  HPKE-IANA:
+    author:
+    org: IANA
+    title: Hybrid Public Key Encryption (HPKE) IANA Registry
+    target: https://www.iana.org/assignments/hpke/hpke.xhtml
+    date: October 2023
 
 
 --- abstract
@@ -77,7 +89,7 @@ DVS rely on the following primitives:
 
 TODO
 
-# Designates Verifier Signatures
+# Designated Verifier Signatures
 
 A designated verifier signature requires three components for an algorithm:
 
@@ -119,6 +131,62 @@ The verification of signature follows these steps:
   - use the output from the key derivation algorithm as an input for the MAC algorithm
   - generate the MAC
 4. Compare the generated MAC with the signature value
+
+
+
+# Designated Verifier Signatures using HPKE
+
+This section describes a simple designated verifier signature scheme based on Hybrid Public Key Encryption (HPKE) {{RFC9180}} in auth mode.
+It reuses the authentication scheme underlying the AEAD algorithm in use, while using the KEM to establish a one-time authentication key from a pair of KEM public keys.
+This scheme was described in early specification drafts of HPKE {{RFC9180}}
+
+## Signature Generation
+
+To create a signature, the sender simply calls the single-shot `Seal()` method with an empty plaintext value and the message to be signed as AAD.
+This produces an encoded key enc and a ciphertext value that contains only the AAD tag. The signature value is the concatenation of the encoded key and the AAD tag.
+
+
+Input:
+
+ * `skS`: private key of the Signing Party
+ * `pkR`: public key of the Verifying Party
+ * `msg`: JWS Signing Input
+
+Steps:
+
+1. Call `enc`, `ct` = `SealAuth(pkR, info, aad, pt, skS)` with
+   * `info` = ""
+   * `aad` = `msg`
+   * `pt` = ""
+2. JWS Signature is the octet string concatenation of (`enc` \|\| `ct`)
+
+## Signature Verification
+
+To verify a signature, the recipient extracts encoded key and the AAD tag from the signature value and calls the single-shor `Open()` with the provided ciphertext.
+If the AEAD authentication passes, then the signature is valid.
+
+Input:
+
+ * `skR`: private key of the Verifying Party
+ * `pkS`: public key of the Signing Party
+ * `msg`: JWS Signing Input
+ * `signature`: JWS Signature octet string
+
+Steps:
+
+1. Decode `enc` \|\| `ct` = `signature` by length of `enc` and `ct`. See [HPKE-IANA] for length of ct and enc.
+2. Call `pt` = `OpenAuth(enc, skR, info, aad, ct, pkS)` with
+   * `info` = ""
+   * `aad` = msg
+3. the signature is valid, when `OpenAuth()` returns `pt` = "" with no authentication exception
+
+NOTE: `ct` contains only a tag. It's length depends on the AEAD algorithm (see Nt values in RFC9180 chapter 7.3.)
+
+## Signature Suites
+Algorithms MUST follow the naming `DVS-HPKE-<Mode>-<KEM>-<KDF>-<AEAD>`.
+"Mode" is Auth (PSKAuth could also be used).
+The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry [HPKE-IANA].
+
 
 # Designated Verifier Signatures for JOSE
 
@@ -175,7 +243,18 @@ This specification described instantiations of Designated Verifier Signatures us
 | DVS-P256-SHA256-HS256 | ECDH using NIST P-256,      | Optional       |
 |                       | HKDF using SHA-256 and      |                |
 |                       | HMAC using SHA-256          |                |
-+--------------------+--------------------------------+----------------+
++-----------------------+-----------------------------+----------------+
+| DVS-HPKE-Auth-X25519  | DVS based on HPKE using     |                |
+| -SHA256               | DHKEM(X25519, HKDF-SHA256)  |   Optional     |
+| -ChaCha20Poly1305     | HKDF-SHA256 KDF and         |                |
+|                       | ChaCha20Poly1305 AEAD       |                |
++-----------------------+-----------------------------+----------------+
+| DVS-HPKE-Auth-P256    | DVS based on HPKE using     |                |
+| -SHA256-AES128GCM     | DHKEM(P-256, HKDF-SHA256)   |   Optional     |
+|                       | HKDF-SHA256 KDF and         |                |
+|                       | AES-128-GCM AEAD            |                |
++-----------------------+-----------------------------+----------------+
+
 ~~~
 
 # Security Considerations
