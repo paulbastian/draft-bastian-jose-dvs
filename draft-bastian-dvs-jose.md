@@ -86,6 +86,7 @@ DVS uses the following notation:
 TODO
 
 DVS rely on the following primitives:
+
 - A Diffie-Hellman Key Agreement (DHKA)
     - `DH(skX, pkY)`: Perform a non-interactive Diffie-Hellman exchange using the private key `skX` and public key `pkY` to produce a Diffie-Hellman shared secret of length Ndh. This function can raise a ValidationError.
     - `Ndh`: The length in bytes of a Diffie-Hellman shared secret produced by `DH()`.
