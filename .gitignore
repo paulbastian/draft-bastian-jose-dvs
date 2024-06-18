@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-bastian-jose-alg-ecdh-mac.xml
+draft-bastian-dvs-jose.xml
 package-lock.json
 report.xml
 !requirements.txt
