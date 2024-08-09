@@ -33,6 +33,7 @@ author:
  -
     fullname: Micha Kraus
     organization: Bundesdruckerei GmbH
+    email: kraus.micha@gmail.com
 
 normative:
   RFC7515: RFC7515
