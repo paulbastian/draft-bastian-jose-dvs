@@ -3,7 +3,7 @@ title: "Designated Verifier Signatures for JOSE"
 abbrev: "DVS for JOSE"
 category: info
 
-docname: draft-bastian-dvs-jose-latest
+docname: draft-bastian-jose-dvs-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -22,7 +22,7 @@ venue:
   mail: "jose@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/jose/"
   github: "paulbastian/draft-bastian-dvs-jose"
-  latest: "https://paulbastian.github.io/draft-bastian-dvs-jose/draft-bastian-dvs-jose.html"
+  latest: "https://paulbastian.github.io/draft-bastian-dvs-jose/draft-bastian-jose-dvs.html"
 
 author:
  -
