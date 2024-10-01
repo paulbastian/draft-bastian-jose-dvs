@@ -46,6 +46,10 @@ informative:
     title: Hybrid Public Key Encryption (HPKE) IANA Registry
     target: https://www.iana.org/assignments/hpke/hpke.xhtml
     date: October 2023
+  ISO-18013-5:
+    title: "ISO/IEC 18013-5:2021, Personal identification — ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application"
+    target: https://www.iso.org/standard/69084.html
+    date: September 2021
 
 
 --- abstract
@@ -59,6 +63,8 @@ This specification defines designated verifier signatures for JOSE and defines a
 Designated verifier signatures (DVS) are signature schemes in which signatures are generated, that can only be verified a particular party. Unlike conventional digital signature schemes like ECDSA, this enables repudiable signatures.
 
 This specification describes a general structure for designated verifier signature schemes and specified a set of instantiations that use a combination of an ECDH key exchange with an HMAC.
+
+The combination of ECDH and MAC is a established mechanism and used, for example, in the mobile driving licence (mDL) application, specified in {{ISO-18013-5}}.
 
 This specification and all described algorithms should respect the efforts for [Fully Specified Algorithms](https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html).
 
