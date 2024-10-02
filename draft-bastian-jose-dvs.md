@@ -21,8 +21,8 @@ venue:
   type: "Working Group"
   mail: "jose@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/jose/"
-  github: "paulbastian/draft-bastian-dvs-jose"
-  latest: "https://paulbastian.github.io/draft-bastian-dvs-jose/draft-bastian-jose-dvs.html"
+  github: "paulbastian/draft-bastian-jose-dvs"
+  latest: "https://paulbastian.github.io/draft-bastian-jose-dvs/draft-bastian-jose-dvs.html"
 
 author:
  -
