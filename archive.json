@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-10T01:15:05.765136+00:00",
+  "timestamp": "2024-10-13T01:20:32.861129+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -119,6 +119,22 @@
       "body": "I think the spec could state/show examples of a suitable JWK within a JWKS and how 'use' or other key parameters could be used to select a key.",
       "createdAt": "2024-09-23T08:28:35Z",
       "updatedAt": "2024-09-23T08:28:35Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOLDmL8c6Z20X-",
+      "title": "Add non-normative example",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/9",
+      "state": "OPEN",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-11T12:38:38Z",
+      "updatedAt": "2024-10-11T12:38:38Z",
       "closedAt": null,
       "comments": []
     }
