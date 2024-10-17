@@ -38,6 +38,8 @@ normative:
   RFC7517: RFC7517
   RFC7518: RFC7518
   RFC9180: RFC9180
+  RFC5869: RFC5869
+  RFC2104: RFC2104
   BSI-TR-03111:
     title: "Technical Guideline BSI TR-03111: Elliptic Curve Cryptography, Version 2.10"
     target: https://www.bsi.bund.de/dok/TR-03111-en
@@ -53,6 +55,10 @@ informative:
     title: "ISO/IEC 18013-5:2021, Personal identification — ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application"
     target: https://www.iso.org/standard/69084.html
     date: September 2021
+  TLS-NOTARY:
+    title: "TLSNotary project"
+    target: https://tlsnotary.org/
+    date: October 2024
 
 
 
@@ -65,7 +71,7 @@ This specification defines structures and algorithm descriptions for the use of 
 
 # Introduction
 
-Designated verifier signatures (DVS) are signature schemes in which signatures are generated, that can only be verified a particular party. Unlike conventional digital signature schemes like ECDSA, this enables repudiable signatures.
+Designated verifier signatures (DVS) are signature schemes in which signatures are generated, that can only be verified by a particular party. Unlike conventional digital signature schemes like ECDSA, this enables repudiable signatures.
 
 This specification describes a general structure for designated verifier signature schemes and specified a set of instantiations that use a combination of an KA-DH (Diffie-Hellman key aggrement) with an MAC (Message Authentication Code algorithm).
 
@@ -98,12 +104,12 @@ DVS rely on the following primitives:
     - `Ndh`: The length in bytes of a Diffie-Hellman shared secret produced by `DH()`.
     - `Nsk`: The length in bytes of a Diffie-Hellman private key.
 
-- A key derivation function (KDF), for example HKDF defined in TODO:
+- A key derivation function (KDF), for example HKDF defined in {{RFC5869}}:
     - `Extract(salt, ikm)`: Extract a pseudorandom key of fixed length Nh bytes from input keying material `ikm` and an optional byte string `salt`.
     - `Expand(prk, info, L)`: Expand a pseudorandom key `prk` using optional string `info` into `L` bytes of output keying material.
     - `Nh`: The output size of the Extract() function in bytes.
 
-- A Message Authentication Code algorithm (MAC), for example HMAC defined in TODO:
+- A Message Authentication Code algorithm (MAC), for example HMAC defined in {{RFC2104}}:
     - `MacSign(k, i)`: Returns an authenticated tag for the given input `i` and key `k`.
     - `Nk`: The length in bytes of key `k`.
 
@@ -240,8 +246,14 @@ This specification described instantiations of Designated Verifier Signatures us
 # Security Considerations
 
 ## Replay Attack Detection
+Verifying party MUST ensure the freshness of signatures by utilizing ephemeral keys in `rpk` or by providing a nonce for `nonce`.
 
-- Verifying Party MUST ensure the freshness of signatures by utilizing ephemeral keys in `rpk` or by providing a nonce for `nonce`.
+## Limited Repudiability
+A malicious verifiying party can weaken the repudiability property by involving certain third parties in the protocol steps.
+
+- One method is to have a third party observe all protocol steps so that third party can be sure that the signature originates by the signer.
+- Another method requires that the verifying party's public key is a shared key that has previously been calculated with the keys of certain specific third parties so that the proof of authenticity can be done with MPC involving all parties (see {{TLS-NOTARY}}).
+
 
 # IANA Considerations
 
