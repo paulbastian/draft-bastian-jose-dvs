@@ -5,7 +5,7 @@
 Javascript Object Signing and Encryption                      P. Bastian
 Internet-Draft                                                          
 Intended status: Informational                                  M. Kraus
-Expires: 5 April 2025                                     2 October 2024
+Expires: 20 April 2025                                   17 October 2024
 
 
                 Designated Verifier Signatures for JOSE
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 April 2025.
+   This Internet-Draft will expire on 20 April 2025.
 
 Copyright Notice
 
@@ -80,6 +80,7 @@ Table of Contents
      6.1.  Example JWT
    7.  Security Considerations
      7.1.  Replay Attack Detection
+     7.2.  Limited Repudiability
    8.  IANA Considerations
    9.  References
      9.1.  Normative References
@@ -95,7 +96,7 @@ Table of Contents
 1.  Introduction
 
    Designated verifier signatures (DVS) are signature schemes in which
-   signatures are generated, that can only be verified a particular
+   signatures are generated, that can only be verified by a particular
    party.  Unlike conventional digital signature schemes like ECDSA,
    this enables repudiable signatures.
 
@@ -154,7 +155,8 @@ Table of Contents
 
       -  Nsk: The length in bytes of a Diffie-Hellman private key.
 
-   *  A key derivation function (KDF), for example HKDF defined in TODO:
+   *  A key derivation function (KDF), for example HKDF defined in
+      [RFC5869]:
 
       -  Extract(salt, ikm): Extract a pseudorandom key of fixed length
          Nh bytes from input keying material ikm and an optional byte
@@ -166,7 +168,7 @@ Table of Contents
       -  Nh: The output size of the Extract() function in bytes.
 
    *  A Message Authentication Code algorithm (MAC), for example HMAC
-      defined in TODO:
+      defined in [RFC2104]:
 
       -  MacSign(k, i): Returns an authenticated tag for the given input
          i and key k.
@@ -336,8 +338,22 @@ Table of Contents
 
 7.1.  Replay Attack Detection
 
-   *  Verifying Party MUST ensure the freshness of signatures by
-      utilizing ephemeral keys in rpk or by providing a nonce for nonce.
+   Verifying party MUST ensure the freshness of signatures by utilizing
+   ephemeral keys in rpk or by providing a nonce for nonce.
+
+7.2.  Limited Repudiability
+
+   A malicious verifiying party can weaken the repudiability property by
+   involving certain third parties in the protocol steps.
+
+   *  One method is to have a third party observe all protocol steps so
+      that third party can be sure that the signature originates by the
+      signer.
+
+   *  Another method requires that the verifying party's public key is a
+      shared key that has previously been calculated with the keys of
+      certain specific third parties so that the proof of authenticity
+      can be done with MPC involving all parties (see [TLS-NOTARY]).
 
 8.  IANA Considerations
 
@@ -356,10 +372,20 @@ Table of Contents
               Cryptography, Version 2.10", June 2018,
               <https://www.bsi.bund.de/dok/TR-03111-en>.
 
+   [RFC2104]  Krawczyk, H., Bellare, M., and R. Canetti, "HMAC: Keyed-
+              Hashing for Message Authentication", RFC 2104,
+              DOI 10.17487/RFC2104, February 1997,
+              <https://www.rfc-editor.org/rfc/rfc2104>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC5869]  Krawczyk, H. and P. Eronen, "HMAC-based Extract-and-Expand
+              Key Derivation Function (HKDF)", RFC 5869,
+              DOI 10.17487/RFC5869, May 2010,
+              <https://www.rfc-editor.org/rfc/rfc5869>.
 
    [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
               Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
@@ -393,6 +419,10 @@ Table of Contents
               compliant driving licence, Part 5: Mobile driving licence
               (mDL) application", September 2021,
               <https://www.iso.org/standard/69084.html>.
+
+   [TLS-NOTARY]
+              "TLSNotary project", October 2024,
+              <https://tlsnotary.org/>.
 
 Appendix A.  Designated Verifier Signatures using HPKE
 
