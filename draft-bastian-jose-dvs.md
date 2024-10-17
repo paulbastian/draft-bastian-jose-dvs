@@ -252,7 +252,7 @@ Verifying party MUST ensure the freshness of signatures by utilizing ephemeral k
 A malicious verifiying party can weaken the repudiability property by involving certain third parties in the protocol steps.
 
 - One method is to have a third party observe all protocol steps so that third party can be sure that the signature originates by the signer.
-- Another method requires that the verifying party's public key is a shared key that has previously been calculated with the keys of certain specific third parties so that the proof of authenticity can be done with MPC involving all parties (see {{TLS-NOTARY}}).
+- Another method requires that the verifying party's public key is a shared key that has previously been calculated with the keys of certain specific third parties so that the proof of authenticity can be done with Multi Party Computation involving all parties (see {{TLS-NOTARY}}).
 
 
 # IANA Considerations
