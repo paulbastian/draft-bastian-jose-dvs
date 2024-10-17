@@ -353,7 +353,8 @@ Table of Contents
    *  Another method requires that the verifying party's public key is a
       shared key that has previously been calculated with the keys of
       certain specific third parties so that the proof of authenticity
-      can be done with MPC involving all parties (see [TLS-NOTARY]).
+      can be done with Multi Party Computation involving all parties
+      (see [TLS-NOTARY]).
 
 8.  IANA Considerations
 
