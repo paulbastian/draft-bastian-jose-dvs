@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T01:15:55.444083+00:00",
+  "timestamp": "2024-10-20T01:22:02.072065+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -243,7 +243,7 @@
       "id": "PR_kwDOLDmL8c59Qg5B",
       "title": "Refactoring",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/8",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mickrau",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -251,21 +251,57 @@
         "paulbastian"
       ],
       "labels": [],
-      "body": "- [x] rename to draft-bastian-jose-dvs\r\n- [x] add references to ISO mDL an BSI TR\r\n- [x] remove organization\r\n- [x] move HPKE mode to appendix\r\n- [x] move functions\r\n- [x] rename github repo to https://github.com/paulbastian/draft-bastian-jose-dvs/ (change references)\r\n- [ ] add reference to HKDF\r\n- [ ] add reference to HMAC\r\n- [ ] add example signature?",
+      "body": "- [x] rename to draft-bastian-jose-dvs\r\n- [x] add references to ISO mDL an BSI TR\r\n- [x] remove organization\r\n- [x] move HPKE mode to appendix\r\n- [x] move functions\r\n- [x] rename github repo to https://github.com/paulbastian/draft-bastian-jose-dvs/ (change references)\r\n- [x] add reference to HKDF\r\n- [x] add reference to HMAC\r\n- [ ] add example signature?",
       "createdAt": "2024-10-01T13:38:37Z",
-      "updatedAt": "2024-10-02T13:50:26Z",
+      "updatedAt": "2024-10-17T13:23:36Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "7ed7546b1cebf31561af2f8173186231e7d688f5",
       "headRepository": "paulbastian/draft-bastian-jose-dvs",
       "headRefName": "refactor_name",
-      "headRefOid": "a53c55f85abdf09abd5909092e5193ac2f796641",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0ce050abbde2ea8c98ec1e65a2f024080932222d",
+      "closedAt": "2024-10-17T13:23:25Z",
+      "mergedAt": "2024-10-17T13:23:25Z",
+      "mergedBy": "paulbastian",
+      "mergeCommit": {
+        "oid": "dbc0fce7c1d94f9be3d5e0fd2f7ca374bf421c6a"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c6NkxdP",
+          "commit": {
+            "abbreviatedOid": "f17caa1"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-17T13:20:14Z",
+          "updatedAt": "2024-10-17T13:20:14Z",
+          "comments": [
+            {
+              "originalPosition": 263,
+              "body": "```suggestion\r\n- Another method requires that the verifying party's public key is a shared key that has previously been calculated with the keys of certain specific third parties so that the proof of authenticity can be done with Multi Party Computation involving all parties (see {{TLS-NOTARY}}).\r\n```",
+              "createdAt": "2024-10-17T13:20:14Z",
+              "updatedAt": "2024-10-17T13:20:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c6NkxzC",
+          "commit": {
+            "abbreviatedOid": "0ce050a"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-10-17T13:20:44Z",
+          "updatedAt": "2024-10-17T13:20:44Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
