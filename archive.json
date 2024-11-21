@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-19T01:20:12.850167+00:00",
+  "timestamp": "2024-11-21T01:19:13.091620+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -86,9 +86,17 @@
       "labels": [],
       "body": "",
       "createdAt": "2024-06-17T15:46:55Z",
-      "updatedAt": "2024-06-17T15:46:55Z",
+      "updatedAt": "2024-11-19T17:59:13Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "sander",
+          "authorAssociation": "NONE",
+          "body": "In mdoc, the HKDF salt is set to `SHA-256(SessionTranscriptBytes)`, which consists of:\r\n\r\n- `DeviceEngagementBytes` which contains:\r\n     - protocol version number\r\n     - ciphersuite identifier\r\n     - ephemeral device public key\r\n     - possibly supported device retrieval method information\r\n     - possibly supported server retrieval method information\r\n     - possibly protocol information (reserved for future use)\r\n     - possibly additional information (reserved for future use)\r\n- `EReaderKeyBytes` which contains the ephemeral reader public key\r\n- `Handover` which is empty in the case of QR code device engagement\r\n\r\nIt makes sense to support setting the salt in DVS as well. Or do you envision using the the JWS header for such information? If so, did you already analyse the security properties of having it there and using a constant (potentially empty) salt?\r\n\r\nIn the current version the default value is specified as `salt=\"\"`, implying that the salt is a human-readable string. Instead, it is likely to be some octet string output of a hash function.",
+          "createdAt": "2024-11-19T17:51:17Z",
+          "updatedAt": "2024-11-19T17:59:13Z"
+        }
+      ]
     },
     {
       "number": 6,
