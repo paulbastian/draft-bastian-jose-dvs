@@ -27,11 +27,23 @@ venue:
 author:
  -
     fullname: Paul Bastian
+    organization: Bundesdruckerei GmbH
     email: bastianpaul@googlemail.com
 
  -
     fullname: Micha Kraus
+    organization: Bundesdruckerei GmbH
     email: kraus.micha@gmail.com
+
+ -
+    fullname: Stefan Santesson
+    organization: IDsec Solutions
+    email: stefan@aaa-sec.com
+
+ -
+    fullname: Peter Lee Altmann
+    organization: The Agency for Digital Government
+    email: altmann@mail.com
 
 normative:
   RFC7515: RFC7515
