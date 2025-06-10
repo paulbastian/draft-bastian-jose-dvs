@@ -3,9 +3,13 @@
 
 
 Javascript Object Signing and Encryption                      P. Bastian
-Internet-Draft                                                          
-Intended status: Informational                                  M. Kraus
-Expires: 12 December 2025                                   10 June 2025
+Internet-Draft                                                  M. Kraus
+Intended status: Informational                      Bundesdruckerei GmbH
+Expires: 12 December 2025                                   S. Santesson
+                                                         IDsec Solutions
+                                                           P. L. Altmann
+                                       The Agency for Digital Government
+                                                            10 June 2025
 
 
                 Designated Verifier Signatures for JOSE
@@ -520,8 +524,20 @@ Appendix B.  Acknowledgments
 Authors' Addresses
 
    Paul Bastian
+   Bundesdruckerei GmbH
    Email: bastianpaul@googlemail.com
 
 
    Micha Kraus
+   Bundesdruckerei GmbH
    Email: kraus.micha@gmail.com
+
+
+   Stefan Santesson
+   IDsec Solutions
+   Email: stefan@aaa-sec.com
+
+
+   Peter Lee Altmann
+   The Agency for Digital Government
+   Email: altmann@mail.com
