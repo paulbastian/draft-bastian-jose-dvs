@@ -16,7 +16,6 @@
 <meta content="JOSE" name="keyword">
 <meta content="JWS" name="keyword">
 <meta content="designated verifier signature" name="keyword">
-<meta content="HPKE" name="keyword">
 <meta content="draft-bastian-jose-dvs-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.28.1
@@ -1223,27 +1222,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-designated-verifier-signature" class="internal xref">Designated Verifier Signatures using HPKE</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-cryptographic-dependencies-2" class="internal xref">Cryptographic Dependencies</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-signature-generation-2" class="internal xref">Signature Generation</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
-                <p id="section-toc.1-1.10.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-signature-verification-2" class="internal xref">Signature Verification</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-signature-suites-2" class="internal xref">Signature Suites</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1459,7 +1441,7 @@ def dvsVerify(skR, pkS, msg, salt = "", info = "DVS-1", signature)
 <p id="section-6-2">The following JWS headers are used to convey Designated Verifier Signatures for JOSE:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-3.1">
-          <p id="section-6-3.1.1"><code>alg</code> : <span class="bcp14">REQUIRED</span>. The algorithm parameter describes the chosen signature suite, for example the ones described in (#generic_suites) and (#hpke_suites).<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
+          <p id="section-6-3.1.1"><code>alg</code> : <span class="bcp14">REQUIRED</span>. The algorithm parameter describes the chosen signature suite, for example the ones described in (#generic_suites).<a href="#section-6-3.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-6-3.2">
           <p id="section-6-3.2.1"><code>rpk</code> : <span class="bcp14">REQUIRED</span>. The <code>rpk</code> (recipient public key) parameter represents the encoded public key of the Verifying Party that was used in the DHKA algorithm as a JSON Web Key according to <span>[<a href="#RFC7517" class="cite xref">RFC7517</a>]</span>. This parameter <span class="bcp14">MUST</span> be present.<a href="#section-6-3.2.1" class="pilcrow">¶</a></p>
@@ -1512,16 +1494,6 @@ base64-encoded MAC
 | DVS-P256-SHA256-HS256 | ECDH using NIST P-256,      |   Optional     |
 |                       | HKDF using SHA-256 and      |                |
 |                       | HMAC using SHA-256          |                |
-+-----------------------+-----------------------------+----------------+
-| DVS-HPKE-Auth-X25519  | DVS based on HPKE using     |                |
-| -SHA256               | DHKEM(X25519, HKDF-SHA256)  |  Optional      |
-| -ChaCha20Poly1305     | HKDF-SHA256 KDF and         |  (Appendix A)  |
-|                       | ChaCha20Poly1305 AEAD       |                |
-+-----------------------+-----------------------------+----------------+
-| DVS-HPKE-Auth-P256    | DVS based on HPKE using     |                |
-| -SHA256-AES128GCM     | DHKEM(P-256, HKDF-SHA256)   |   Optional     |
-|                       | HKDF-SHA256 KDF and         |   (Appendix A) |
-|                       | AES-128-GCM AEAD            |                |
 +-----------------------+-----------------------------+----------------+
 </pre><a href="#section-6.1-8" class="pilcrow">¶</a>
 </div>
@@ -1632,10 +1604,6 @@ base64-encoded MAC
 <a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="HPKE-IANA">[HPKE-IANA]</dt>
-        <dd>
-<span class="refTitle">"Hybrid Public Key Encryption (HPKE) IANA Registry"</span>, <time datetime="2023-10" class="refDate">October 2023</time>, <span>&lt;<a href="https://www.iana.org/assignments/hpke/hpke.xhtml">https://www.iana.org/assignments/hpke/hpke.xhtml</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="ISO-18013-5">[ISO-18013-5]</dt>
         <dd>
 <span class="refTitle">"ISO/IEC 18013-5:2021, Personal identification — ISO-compliant driving licence, Part 5: Mobile driving licence (mDL) application"</span>, <time datetime="2021-09" class="refDate">September 2021</time>, <span>&lt;<a href="https://www.iso.org/standard/69084.html">https://www.iso.org/standard/69084.html</a>&gt;</span>. </dd>
@@ -1649,138 +1617,24 @@ base64-encoded MAC
 </div>
 </section>
 </div>
-<div id="designated-verifier-signatures-using-hpke">
-<section id="appendix-A">
-      <h2 id="name-designated-verifier-signature">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-designated-verifier-signature" class="section-name selfRef">Designated Verifier Signatures using HPKE</a>
-      </h2>
-<p id="appendix-A-1">This section describes a simple designated verifier signature scheme based on Hybrid Public Key Encryption (HPKE) <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span> in auth mode.
-It reuses the authentication scheme underlying the AEAD algorithm in use, while using the KEM to establish a one-time authentication key from a pair of KEM public keys.
-This scheme was described in early specification drafts of HPKE <span>[<a href="#RFC9180" class="cite xref">RFC9180</a>]</span><a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<div id="cryptographic-dependencies-1">
-<section id="appendix-A.1">
-        <h3 id="name-cryptographic-dependencies-2">
-<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-cryptographic-dependencies-2" class="section-name selfRef">Cryptographic Dependencies</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="appendix-A.1-1.1">
-            <p id="appendix-A.1-1.1.1">An HPKE algorithm (for the HPKE variants):<a href="#appendix-A.1-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.1-1.2">
-            <p id="appendix-A.1-1.2.1"><code>SealAuth(pkR, info, aad, pt, skS)</code>: encrypts and authenticates single plaintext <code>pt</code> with associated data <code>aad</code> and context <code>info</code> using a private sender key <code>skS</code> and public receiver key <code>pkR</code>.<a href="#appendix-A.1-1.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.1-1.3">
-            <p id="appendix-A.1-1.3.1"><code>OpenAuth(enc, skR, info, aad, ct, pkS)</code>: decrypts ciphertext and tag <code>ct</code> with associated data <code>aad</code> and context <code>info</code> using a private receiver key <code>skR</code> and public sender key <code>pkS</code>.<a href="#appendix-A.1-1.3.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-<div id="signature-generation-1">
-<section id="appendix-A.2">
-        <h3 id="name-signature-generation-2">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-signature-generation-2" class="section-name selfRef">Signature Generation</a>
-        </h3>
-<p id="appendix-A.2-1">To create a signature, the sender simply calls the single-shot <code>Seal()</code> method with an empty plaintext value and the message to be signed as AAD.
-This produces an encoded key enc and a ciphertext value that contains only the AAD tag. The signature value is the concatenation of the encoded key and the AAD tag.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-2">Input:<a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.2-3.1">
-            <p id="appendix-A.2-3.1.1"><code>skS</code>: private key of the Signing Party<a href="#appendix-A.2-3.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-3.2">
-            <p id="appendix-A.2-3.2.1"><code>pkR</code>: public key of the Verifying Party<a href="#appendix-A.2-3.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-3.3">
-            <p id="appendix-A.2-3.3.1"><code>msg</code>: JWS Signing Input<a href="#appendix-A.2-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.2-3.4">
-            <p id="appendix-A.2-3.4.1"><code>info</code> : optional info for key derivation<a href="#appendix-A.2-3.4.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.2-4">Steps:<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.2-5">
-<li id="appendix-A.2-5.1">
-            <p id="appendix-A.2-5.1.1">Call <code>enc</code>, <code>ct</code> = <code>SealAuth(pkR, info, aad, pt, skS)</code> with
-* <code>aad</code> = <code>msg</code>
-* <code>pt</code> = ""<a href="#appendix-A.2-5.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="appendix-A.2-5.2">
-            <p id="appendix-A.2-5.2.1">JWS Signature is the octet string concatenation of (<code>enc</code> || <code>ct</code>)<a href="#appendix-A.2-5.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ol>
-</section>
-</div>
-<div id="signature-verification-1">
-<section id="appendix-A.3">
-        <h3 id="name-signature-verification-2">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-signature-verification-2" class="section-name selfRef">Signature Verification</a>
-        </h3>
-<p id="appendix-A.3-1">To verify a signature, the recipient extracts encoded key and the AAD tag from the signature value and calls the single-shor <code>Open()</code> with the provided ciphertext.
-If the AEAD authentication passes, then the signature is valid.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-2">Input:<a href="#appendix-A.3-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-A.3-3.1">
-            <p id="appendix-A.3-3.1.1"><code>skR</code>: private key of the Verifying Party<a href="#appendix-A.3-3.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-3.2">
-            <p id="appendix-A.3-3.2.1"><code>pkS</code>: public key of the Signing Party<a href="#appendix-A.3-3.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-3.3">
-            <p id="appendix-A.3-3.3.1"><code>msg</code>: JWS Signing Input<a href="#appendix-A.3-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-3.4">
-            <p id="appendix-A.3-3.4.1"><code>info</code> : optional info for key derivation<a href="#appendix-A.3-3.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="appendix-A.3-3.5">
-            <p id="appendix-A.3-3.5.1"><code>signature</code>: JWS Signature octet string<a href="#appendix-A.3-3.5.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="appendix-A.3-4">Steps:<a href="#appendix-A.3-4" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="appendix-A.3-5">
-<li id="appendix-A.3-5.1">
-            <p id="appendix-A.3-5.1.1">Decode <code>enc</code> || <code>ct</code> = <code>signature</code> by length of <code>enc</code> and <code>ct</code>. See <span>[<a href="#HPKE-IANA" class="cite xref">HPKE-IANA</a>]</span> for length of ct and enc.<a href="#appendix-A.3-5.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="appendix-A.3-5.2">
-            <p id="appendix-A.3-5.2.1">Call <code>pt</code> = <code>OpenAuth(enc, skR, info, aad, ct, pkS)</code> with
-* <code>aad</code> = msg<a href="#appendix-A.3-5.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="appendix-A.3-5.3">
-            <p id="appendix-A.3-5.3.1">the signature is valid, when <code>OpenAuth()</code> returns <code>pt</code> = "" with no authentication exception<a href="#appendix-A.3-5.3.1" class="pilcrow">¶</a></p>
-</li>
-        </ol>
-<p id="appendix-A.3-6">NOTE: <code>ct</code> contains only a tag. It's length depends on the AEAD algorithm (see Nt values in RFC9180 chapter 7.3.)<a href="#appendix-A.3-6" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="hpke_suites">
-<section id="appendix-A.4">
-        <h3 id="name-signature-suites-2">
-<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-signature-suites-2" class="section-name selfRef">Signature Suites</a>
-        </h3>
-<p id="appendix-A.4-1">Algorithms <span class="bcp14">MUST</span> follow the naming <code>DVS-HPKE-&lt;Mode&gt;-&lt;KEM&gt;-&lt;KDF&gt;-&lt;AEAD&gt;</code>.
-"Mode" is Auth (PSKAuth could also be used).
-The "KEM", "KDF", and "AEAD" values are chosen from the HPKE IANA registry <span>[<a href="#HPKE-IANA" class="cite xref">HPKE-IANA</a>]</span>.<a href="#appendix-A.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
 <div id="acknowledgments">
-<section id="appendix-B">
+<section id="appendix-A">
       <h2 id="name-acknowledgments">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-B-1">Thanks to:<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Thanks to:<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">Brian Campbell<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-A-2.1">
+          <p id="appendix-A-2.1.1">Brian Campbell<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">John Bradley<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-A-2.2">
+          <p id="appendix-A-2.2.1">John Bradley<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-B">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
