@@ -71,15 +71,15 @@ This specification defines structures and algorithm descriptions for the use of 
 
 # Introduction
 
-Designated verifier signatures (DVS) are signature schemes in which signatures are generated, that can only be verified by a particular party. Unlike conventional digital signature schemes like ECDSA, this enables repudiable signatures.
+This specification defines a method for deriving a symmetric Message Authentication Code (MAC) key from public parameters embedded in a JSON Web Token (JWT), enabling verifier-specific, stateless proof-of-possession (PoP) without requiring pre-shared secrets or encrypted key transport.
 
-This specification describes a general structure for designated verifier signature schemes and specified a set of instantiations that use a combination of an KA-DH (Diffie-Hellman key aggrement) with an MAC (Message Authentication Code algorithm).
+The proposed approach derives a MAC key using Diffie-Hellman key agreement (DH-KA) and a Key Derivation Function (KDF). While compatible with the `cnf` claim structure defined in RFC 7800, it assigns new semantics to the key member, treating it as a DH-KA public key rather than a directly usable signing key. 
 
-The combination of ECKA-DH and MAC is a established mechanism and used, for example, in the mobile driving licence (mDL) application, specified in {{ISO-18013-5}}.
+This specification builds on related RFCs that define DH-KA-based symmetric key derivation mechanisms (e.g., RFCs 6955, 8037, and 8418), but adapts them to the JOSE context. It specifies how a JWT can include a DH-KA public key in the `cnf` member, from which the recipient, using their own static private key, derives a shared secret. A KDF is then applied to generate a symmetric MAC key.
 
-This specification and all described algorithms should respect the efforts for [Fully Specified Algorithms](https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html).
+To enable consistent key derivation by the recipient using only information contained in the presented JWT, this specification introduces a new protected header parameter, `pkds` (public key derived secret), which identifies the recipient’s DH-KA public key and specifies associated KDF inputs.
 
-This algorithm is intended for use with digital credentials ecosystems, including the Issuer-Holder-Verifier model described by W3C VCDM or IETF SD-JWT-VC.
+The derived key supports both pairwise and single-use applications, aligning with privacy-preserving practices for JWT PoP keys. This approach is particularly applicable in environments where asymmetric PoP is impractical, e.g., when ephemeral PoP keys must be generated within hardware security modules that expose only constrained interfaces, such as PKCS#11.
 
 # Conventions and Definitions
 
