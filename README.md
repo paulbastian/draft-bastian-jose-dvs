@@ -1,3 +1,5 @@
+<!-- regenerate: on (set to off if you edit this file) -->
+
 # Designated Verifier Signatures for JOSE
 
 This is the working area for the individual Internet-Draft, "Designated Verifier Signatures for JOSE".
@@ -14,7 +16,7 @@ See the
 [guidelines for contributions](https://github.com/paulbastian/draft-bastian-jose-dvs/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
-The  interface supports creating pull requests using the Edit (✏) button.
+The GitHub interface supports creating pull requests using the Edit (✏) button.
 
 
 ## Command Line Usage
