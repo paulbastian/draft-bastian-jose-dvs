@@ -71,7 +71,40 @@ This specification defines structures and algorithm descriptions for the use of 
 
 # Introduction
 
-This specification defines a method for deriving a symmetric Message Authentication Code (MAC) key from public parameters embedded in a JSON Web Token (JWT), enabling verifier-specific, stateless proof-of-possession (PoP) without requiring pre-shared secrets or encrypted key transport.
+This specification defines a method for deriving a symmetric Message Authentication Code (MAC) key from public parameters embedded in a JSON Web Token (JWT), enabling verifier-specific, stateless proof-of-possession (PoP) without requiring pre-shared secrets or encrypted key transport (c.f., Figure 1).
+
+```
++--------------+
+|              |                         +--------------+
+|              |                         |              |
+|              |<-(3) Get recipient's -- |              |
+|              |      Public DH-KA Key   |              |
+|              |                         |              |
+|              |--(4) Presentation of -->|              |
+|              |      JWT w/ Public      |              |
+|  Presenter   |      DH-KA Keys         |              |
+|              |                         |              |
+|              |<-(5) Communication ---->|              |
+|              |      Authenticated by   |              |
++--------------+      Derived MAC Key    |              |
+  |          ^                           |              |
+  |          |                           |              |
+ (1) Public (2) JWT w/ Public            |              |
+  |  DH-KA   |  DH-KA Key                |  Recipient   |
+  |  Key     |                           |              |
+  |          |                           |              |
+  v          |                           |              |
++--------------+                         |              |
+|              |                         |              |
+|              |                         |              |
+|              |                         |              |
+|    Issuer    |                         |              |
+|              |                         |              |
+|              |                         |              |
+|              |                         +--------------+
++--------------+
+```
+ Figure 1: Proof of Possession via a Public Key Derived Symmetric Key
 
 The proposed approach derives a MAC key using Diffie-Hellman key agreement (DH-KA) and a Key Derivation Function (KDF). While compatible with the `cnf` claim structure defined in RFC 7800, it assigns new semantics to the key member, treating it as a DH-KA public key rather than a directly usable signing key. 
 
