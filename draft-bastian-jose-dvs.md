@@ -65,19 +65,19 @@ informative:
 
 --- abstract
 
-This specification defines structures and algorithm descriptions for the use of designated verifier signatures, based on a combination of Key Agreement and Message Authentication Code, with JOSE.
+This specification describes how to use a Diffie-Hellman key agreement (DH-KA) protocol and a key derivation function (KDF) to derive a symmetric Message Authentication Code (MAC) key using information conveyed within a JSON Web Signature (JWS).
 
 --- middle
 
 # Introduction
 
-This specification defines a method to derive a symmetric Message Authentication Code (MAC) key using parameters conveyed within the JWS. Specifically, the MAC key is derived using a Diffie-Hellman Key Agreement (DH-KA) protocol, followed by a Key Derivation Function (KDF). While existing JOSE specifications support MACs and detail symmetric key agreement, they do not define how to dynamically derive a MAC key for JWS validation using only public information carried within the JWS structure. This specification fills that gap by describing how the JWS can carry the necessary key agreement and derivation inputs to generate a symmetric MAC key.
+JSON Web Signature (JWS) [RFC 7515] and JSON Web Algorithms (JWA) [RFC 7518] specify how to secure content with Hash-based Message Authentication Codes (HMAC) [RFC 2104] using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS. 
 
-To enable deterministic key derivation, this specification introduces a new protected header parameter, `pkds` (public key derived secret). The JWS Producer's DH-KA public key appears either in the `pkds` parameter or in a claims element (e.g., within a `cnf` claim as defined in RFC 7800) for use in the key agreement computation. The `pkds` parameter also includes the DH-KA public key used by the JWS Producer in the key agreement computation. Finally, the `pkds` parameter includes the KDF parameters necessary for deriving the MAC key.
+This specification defines a new protected header parameter, `pkds` (public key derived secret), which contains information required to derive an HMAC key using a Diffie-Hellman key agreement (DH-KA) and a key derivation function (KDF). The JWS Producer's DH-KA public key appears either in the `pkds` parameter or in a claims element for use in the key agreement computation. The `pkds` parameter also includes the DH-KA public key used by the JWS Producer in the key agreement computation. Finally, the `pkds` parameter includes the KDF parameters necessary for deriving the MAC key.
 
-The method is particularly useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational or privacy concerns.
+The method is useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational concerns. It enables the use of HMAC-based signatures that can be validated solely with information embedded in a JWS.
 
-One use case is the generation of privacy-preserving symmetric Proof-of-Possession (PoP) keys in scenarios where asymmetric signing is impractical, e.g., when a single-use blinded PoP key must be generated within constrained hardware environments such as a PKCS#11-based hardware security module (HSM).
+A primary motivation for this work is to enable HMAC signature validation from information contained within an {{SD-JWT}}, mirroring capabilities available in credential formats like {{mdoc MSO}}.
 
 # Conventions and Definitions
 
@@ -87,11 +87,11 @@ One use case is the generation of privacy-preserving symmetric Proof-of-Possessi
 
 The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by {{RFC7515}}.
 
-Signing Party:
-: The Party that performs the key agreement first and generates the MAC. Similar to a Signer.
+Producer:
+: The party that performs the DH-KA first, derives the MAC key via a KDF, constructs the JOSE Header and JWS Payload, and computes the JWS Signature.
 
-Verifying Party:
-: The Party that performs the key agreement second, generates the MAC and compares it to a given value. Similar to a Verifier.
+Recipient:
+: The party that performs the DH-KA second, derives the MAC key via information in the JWS, and validates the JWS using the MAC key according to {{RFC7515}}.
 
 # Cryptographic Dependencies
 
