@@ -71,48 +71,13 @@ This specification defines structures and algorithm descriptions for the use of 
 
 # Introduction
 
-This specification defines a method for deriving a symmetric Message Authentication Code (MAC) key from public parameters embedded in a JSON Web Token (JWT), enabling verifier-specific, stateless proof-of-possession (PoP) without requiring pre-shared secrets or encrypted key transport (c.f., Figure 1).
+This specification defines a method to derive a symmetric Message Authentication Code (MAC) key using parameters conveyed within the JWS. Specifically, the MAC key is derived using a Diffie-Hellman Key Agreement (DH-KA) protocol, followed by a Key Derivation Function (KDF). While existing JOSE specifications support MACs and detail symmetric key agreement, they do not define how to dynamically derive a MAC key for JWS validation using only public information carried within the JWS structure. This specification fills that gap by describing how the JWS can carry the necessary key agreement and derivation inputs to generate a symmetric MAC key.
 
-```
-+--------------+
-|              |                         +--------------+
-|              |                         |              |
-|              |<-(3) Get recipient's -- |              |
-|              |      Public DH-KA Key   |              |
-|              |                         |              |
-|              |--(4) Presentation of -->|              |
-|              |      JWT w/ Public      |              |
-|  Presenter   |      DH-KA Keys         |              |
-|              |                         |              |
-|              |<-(5) Communication ---->|              |
-|              |      Authenticated by   |              |
-+--------------+      Derived MAC Key    |              |
-  |          ^                           |              |
-  |          |                           |              |
- (1) Public (2) JWT w/ Public            |              |
-  |  DH-KA   |  DH-KA Key                |  Recipient   |
-  |  Key     |                           |              |
-  |          |                           |              |
-  v          |                           |              |
-+--------------+                         |              |
-|              |                         |              |
-|              |                         |              |
-|              |                         |              |
-|    Issuer    |                         |              |
-|              |                         |              |
-|              |                         |              |
-|              |                         +--------------+
-+--------------+
-```
- Figure 1: Proof of Possession via a Public Key Derived Symmetric Key
+To enable deterministic key derivation, this specification introduces a new protected header parameter, `pkds` (public key derived secret). The JWS producer's public key appears either in the `pkds` parameter or in a claims element (e.g., within a `cnf` claim as defined in RFC 7800). The `pkds` parameter also identifies the public key used by the JWS producer in the key agreement computation, along with additional KDF parameters necessary for deriving the MAC key.
 
-The proposed approach derives a MAC key using Diffie-Hellman key agreement (DH-KA) and a Key Derivation Function (KDF). While compatible with the `cnf` claim structure defined in RFC 7800, it assigns new semantics to the key member, treating it as a DH-KA public key rather than a directly usable signing key. 
+The method is particularly useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational or privacy concerns.
 
-This specification builds on related RFCs that define DH-KA-based symmetric key derivation mechanisms (e.g., RFCs 6955, 8037, and 8418), but adapts them to the JOSE context. It specifies how a JWT can include a DH-KA public key in the `cnf` member, from which the recipient, using their own static private key, derives a shared secret. A KDF is then applied to generate a symmetric MAC key.
-
-To enable consistent key derivation by the recipient using only information contained in the presented JWT, this specification introduces a new protected header parameter, `pkds` (public key derived secret), which identifies the recipient’s DH-KA public key and specifies associated KDF inputs.
-
-The derived key supports both pairwise and single-use applications, aligning with privacy-preserving practices for JWT PoP keys. This approach is particularly applicable in environments where asymmetric PoP is impractical, e.g., when ephemeral PoP keys must be generated within hardware security modules that expose only constrained interfaces, such as PKCS#11.
+One use case is the generation of privacy-preserving symmetric Proof-of-Possession (PoP) keys in scenarios where asymmetric signing is impractical, e.g., when a single-use blinded PoP key must be generated within constrained hardware environments such as a PKCS#11-based hardware security module (HSM).
 
 # Conventions and Definitions
 
