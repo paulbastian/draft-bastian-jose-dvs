@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:13:31.973932+00:00",
+  "timestamp": "2025-06-12T01:12:52.275388+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -145,6 +145,214 @@
       "updatedAt": "2024-10-11T12:38:38Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOLDmL8c63vNbx",
+      "title": "Remove HPKE cases for interoperability reasons",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/10",
+      "state": "CLOSED",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-22T08:59:34Z",
+      "updatedAt": "2025-06-04T10:18:18Z",
+      "closedAt": "2025-06-04T10:18:18Z",
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOLDmL8c63vSjP",
+      "title": "Add Co-Authors",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/11",
+      "state": "OPEN",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mickrau"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-05-22T09:06:53Z",
+      "updatedAt": "2025-06-04T11:20:29Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "add Stefan Santesson (IDsec Solutions) and Peter Lee Altmann (The Agency for Digital Government)",
+          "createdAt": "2025-06-04T11:20:27Z",
+          "updatedAt": "2025-06-04T11:20:27Z"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOLDmL8c63vTww",
+      "title": "Using standard algorithm identifiers for HMAC signatures",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/12",
+      "state": "OPEN",
+      "author": "Razumain",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I propose to use the standard alg parameters for HMAC signatures (HS256, HS384, HS512).\n\nI have a couple of arguments.\n\n**1) It correctly describes the signature algorithm used**\n\nThe standard alg values for HMAC is true regardless of how you derive the HMAC key.\nIf you were using HPKE as the mechanism to create the encrypted payload, it would make more sense to change the alg value.\nToday you need the create header parameters anyway, and the key derivation mechanism could be identifier here instead of changing the alg value.\n\n**2) Compatibility with existing implementations of JOSE**\n\nIf we stick with standard alg values for HMAC, we could pre-process the key derivation and use standard JOSE implementations to create and verify the signature. If we alter the alg value and require the JOSE implementation to handle key derivation, I would need a custom JOSE library. If this spec is not widely adopted, it may take a very long time to reach interoperability, if ever.\n\nSticking with standard alg values will provide interoperability from day 1.",
+      "createdAt": "2025-05-22T09:08:40Z",
+      "updatedAt": "2025-06-04T11:02:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Stefan: new header field should not be critical (agreed)\n\n1. Cleanup (other)\n2. PR with standard alg values\n3. ask JOSE mailing list",
+          "createdAt": "2025-06-04T11:02:30Z",
+          "updatedAt": "2025-06-04T11:02:30Z"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOLDmL8c63vXiJ",
+      "title": "Consolidate header parameters into one parameter with structured data",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/13",
+      "state": "OPEN",
+      "author": "Razumain",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "Razumain"
+      ],
+      "labels": [],
+      "body": "I would propose to define one header parameter for HMAC key derivation that in turn contains a structured JSON structured, represented by Base64URL encoded string.\n\nThis is for comparison the way that ETSI took in their JAdES specification. It requires less header parameter registrations and I personally think it is much easier to handle in an implementation.\n\nI think we should avoid using a mix of current standardized header parameters and custom parameters in order to ensure that we don't confuse standard JOSE libraries who understands the standardized parameters but not the new ones.",
+      "createdAt": "2025-05-22T09:14:09Z",
+      "updatedAt": "2025-06-04T11:29:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "Razumain",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think the header parameter should cover the following:\n\n- Identifier of the HMAC key deriviation process\n- Optional public key of the signer key pair (can be omitted if it is given by the context, such as through a SD JWT cnf claim)\n- key identifier, public key or certificate of the recipient public key corresponding to the private key the verifier must use in the key derivation process.\n- length of the derived key\n- Optional info parameter\n\nFor the purpose of this specification I think we are fine with not specifying salt. If using HPKE, salt is derived inside HPKE, and for HKDF I think we are fine with either a null salt or a deterministically derived value (such as hash of the signed payload or similar).",
+          "createdAt": "2025-05-22T09:45:27Z",
+          "updatedAt": "2025-05-22T09:45:27Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I agree that using one JSON object header parameter that consolidates all necessary data is a good idea.\nI don't understand why it should be represented as a Base64URL encoded string instead of plain JSON object.\nI would prefer to use Base64URL only for the object's elements that are direct input for crypto operations.\n",
+          "createdAt": "2025-06-04T10:17:58Z",
+          "updatedAt": "2025-06-04T10:17:58Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "use structure like this\n\n\"new_header_name\": {\n  \"hkdf\": {\n   //specific parameters\n },\n\"xy_kem\":{\n  // xy_kem specific parameters\n}\n}",
+          "createdAt": "2025-06-04T11:12:19Z",
+          "updatedAt": "2025-06-04T11:12:19Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Question: Should length of the derived key be specified, or always minimum by default?",
+          "createdAt": "2025-06-04T11:29:40Z",
+          "updatedAt": "2025-06-04T11:29:40Z"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOLDmL8c63vY8H",
+      "title": "Cover info in header parameters to the verifier",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/14",
+      "state": "OPEN",
+      "author": "Razumain",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The specification should be clear on the default info parameter value, but I think it would be valuable for implementations to choose their own value.\n\nI propose to allow the header parameters for key derivation to specify an info value, but if not set, use the default value specified in the document.",
+      "createdAt": "2025-05-22T09:16:15Z",
+      "updatedAt": "2025-06-04T10:07:06Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's how we originally intended it, but we probably need to make it clearer.",
+          "createdAt": "2025-06-04T10:07:05Z",
+          "updatedAt": "2025-06-04T10:07:05Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOLDmL8c63vgvb",
+      "title": "Use HKDF instead of HPKE as the default and mandatory to implement key derivation function.",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/15",
+      "state": "OPEN",
+      "author": "Razumain",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "mickrau"
+      ],
+      "labels": [],
+      "body": "Use of HPKE has a number of drawbacks (even if it has its pros as well)\n\n- It is basically a function for providing encryption. We only use half (The key derivation part) which works, but sort of defeats the purpose of HPKE. When using a standard HPKE implementation, I will have to specify an encryption algorithm that will never be used. This will likely confuse some implementers.\n- HPKE is informational, and in relation to JOSE that may create some downref problems. Not very severe, but still.\n\nAnother argument is that HKDF of a Diffie-Hellman shared secret is very easy and straightforward. And does everything we need.\n\n\nI propose:\n\n- Keep using an identifier that specifies exactly what key derivation method that is used, but include a HKDF based method that does not involve HPKE.\n- Make the HKDF variant mandatory to support.\n\nI'm open to keeping HPKE variants, but I would actually prefer to get rid of HPKE as it isn't a perfect fit for just key derivation.",
+      "createdAt": "2025-05-22T09:26:11Z",
+      "updatedAt": "2025-06-04T10:49:16Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "Razumain",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I forgot to add the argument that we may want to process this in less capable environments, like mobile phones and other devices that likely have native support for HKDF, but probably not HPKE. Requiring HPKE support on these devices will create a lot of work for little gain.",
+          "createdAt": "2025-05-22T09:35:00Z",
+          "updatedAt": "2025-05-22T09:35:00Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Good points. We already discussed this and initially moved the HPKE variant to the appendix, but I agree that we should remove it entirely for now.",
+          "createdAt": "2025-06-04T10:05:41Z",
+          "updatedAt": "2025-06-04T10:05:41Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "agreed on removing it",
+          "createdAt": "2025-06-04T10:49:15Z",
+          "updatedAt": "2025-06-04T10:49:15Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOLDmL8c65z0Rd",
+      "title": "propitiate scoping / position",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/16",
+      "state": "OPEN",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "focus on how to get the symmetric key",
+      "createdAt": "2025-06-04T10:44:50Z",
+      "updatedAt": "2025-06-04T11:17:41Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "proposal by Stefan\npkds: \"public key derived secret\"",
+          "createdAt": "2025-06-04T11:15:09Z",
+          "updatedAt": "2025-06-04T11:15:09Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Peter will make first proposal",
+          "createdAt": "2025-06-04T11:17:40Z",
+          "updatedAt": "2025-06-04T11:17:40Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -307,6 +515,116 @@
           "body": "",
           "createdAt": "2024-10-17T13:20:44Z",
           "updatedAt": "2024-10-17T13:20:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOLDmL8c6ZJrNe",
+      "title": "remove HPKE variant",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/17",
+      "state": "MERGED",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Solves #15 ",
+      "createdAt": "2025-06-05T08:00:16Z",
+      "updatedAt": "2025-06-10T07:41:07Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "efa3b854c9153cff0e240e36e3e5ffe381ca4a96",
+      "headRepository": "paulbastian/draft-bastian-jose-dvs",
+      "headRefName": "remove-hpke",
+      "headRefOid": "a78ae0b8b3b2f890d4abad24a14c6813a729eaf2",
+      "closedAt": "2025-06-10T07:41:07Z",
+      "mergedAt": "2025-06-10T07:41:07Z",
+      "mergedBy": "mickrau",
+      "mergeCommit": {
+        "oid": "af240131c5c2bcef7aea0ec87f6a1aa325553537"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOLDmL8c6ZK7Ri",
+      "title": "add Stefan and Peter as co-authors",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/18",
+      "state": "MERGED",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Solves #11 ",
+      "createdAt": "2025-06-05T10:01:13Z",
+      "updatedAt": "2025-06-10T07:38:41Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "dbc0fce7c1d94f9be3d5e0fd2f7ca374bf421c6a",
+      "headRepository": "paulbastian/draft-bastian-jose-dvs",
+      "headRefName": "edit_contributors",
+      "headRefOid": "58919d5e7210f0850294bf894fea152a32da5897",
+      "closedAt": "2025-06-10T07:38:41Z",
+      "mergedAt": "2025-06-10T07:38:41Z",
+      "mergedBy": "mickrau",
+      "mergeCommit": {
+        "oid": "efa3b854c9153cff0e240e36e3e5ffe381ca4a96"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c6s4KaQ",
+          "commit": {
+            "abbreviatedOid": "58919d5"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-06-05T13:44:04Z",
+          "updatedAt": "2025-06-05T13:44:04Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOLDmL8c6Zyb-H",
+      "title": "Update introduction for draft-bastian-jose-dvs.md",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/19",
+      "state": "OPEN",
+      "author": "AltmannPeter",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Updated introduction",
+      "createdAt": "2025-06-10T05:55:40Z",
+      "updatedAt": "2025-06-11T19:43:22Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
+      "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
+      "headRefName": "patch-1",
+      "headRefOid": "8dd09fcf9f7584dd60b5b53ecce92f0a6855ecbf",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c6t9E7e",
+          "commit": {
+            "abbreviatedOid": "8dd09fc"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Two points to discuss:\r\n1- do we need to distinuguish Issuer and Presenter? Imo for the context of this draft having two parties should by enough?\r\n2- We need to align on the terminology for the roles/entities. In my opinion, we should either stick to the very generic terminology(producing/generating and receiving/recipient) or we adopt the three party model and take the vocabular used in SD-JWT",
+          "createdAt": "2025-06-11T19:43:22Z",
+          "updatedAt": "2025-06-11T19:43:22Z",
           "comments": []
         }
       ]
