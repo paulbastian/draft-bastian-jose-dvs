@@ -102,6 +102,31 @@ Signing Party:
 Verifying Party:
 : The Party that performs the key agreement second, generates the MAC and compares it to a given value. Similar to a Verifier.
 
+# The "pkds" Header Parameter
+
+The pkds protected header parameter specifies the inputs needed to derive a symmetric key for MAC computation using a key agreement and derivation scheme. Its value is a JSON object that includes identifiers, public keys, and algorithm-specific parameters relevant to the derivation.
+
+## Syntax and semantics
+
+The `pkds` Header Parameter value MUST be a JSON object with the following fields:
+
+* `suite` (string, REQUIRED): Identifies the key agreement and key derivation suite used to derive the MAC key. The value MUST be a registered name (for example "ECDH-HKDF-SHA256"). Key agreement parameters are determined by the provided DH-KA public keys. Implementations MUST reject any suite value that is not registered or not recognized.
+* `ppk` (object, REQUIRED):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain exactly one of the following fields:
+  * `jwk` (object): A JSON Web Key [RFC7517]. This field SHOULD be used when the key is not conveyed within the JWS Payload. The JWK MUST include a "use" member with the value "enc".
+  * `jwk_thumbprint` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK conveyed within the JWS Payload. The referenced JWK MUST include a "use" member with the value "enc".
+
+  Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
+* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain exactly one of the following fields:
+  * `jwk` (object): A JSON Web Key [RFC7517]. The JWK MUST include a "use" member with the value "enc".
+  * `jwk_thumbprint` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK communicated by the recipient through out-of-band means. The referenced JWK MUST include a "use" member with the value "enc".
+
+  Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
+
+* `params` (object, REQUIRED): Contains the inputs to the key derivation function specified by `suite`. The `params` object MUST contain the following members:
+  * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF. The info parameter can be zero-length.
+  * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF identified by `suite`.
+  * `length` (integer, OPTIONAL): The length of the derived MAC key, in octets. If omitted, the length MUST default to the minimum length required by the MAC algorithm. Implementations MUST reject the JWS if the length is invalid for the MAC algorithm identified by the JWS `alg` header.
+
 # Cryptographic Dependencies
 
 DVS rely on the following primitives:
