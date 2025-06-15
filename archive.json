@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-12T01:12:52.275388+00:00",
+  "timestamp": "2025-06-15T01:21:03.940371+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -601,18 +601,40 @@
       "labels": [],
       "body": "Updated introduction",
       "createdAt": "2025-06-10T05:55:40Z",
-      "updatedAt": "2025-06-11T19:43:22Z",
+      "updatedAt": "2025-06-12T10:21:28Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-1",
-      "headRefOid": "8dd09fcf9f7584dd60b5b53ecce92f0a6855ecbf",
+      "headRefOid": "b0ba50f9dade7bc4bef57e6a7183366aaa9c90f9",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "body": "> Two points to discuss: 1- do we need to distinuguish Issuer and Presenter? Imo for the context of this draft having two parties should by enough? 2- We need to align on the terminology for the roles/entities. In my opinion, we should either stick to the very generic terminology(producing/generating and receiving/recipient) or we adopt the three party model and take the vocabular used in SD-JWT\r\n\r\nGotten similar feedback from Stefan. IMO:\r\n\r\n1. I built on RFC 7800 (which has three actors and I used their terms). Stefan also pointed out that we likely should not focus on RFC 7800, in which case there is no reason to have three actors, or perhaps even any actors at all.\r\n2. Let us stick with generic terminology as it aligns better with RFC 7515 / 7518.\r\n\r\nWill update today according to the above.",
+          "createdAt": "2025-06-12T05:10:16Z",
+          "updatedAt": "2025-06-12T05:10:16Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "body": "Update done. Also, made the text more general by not mandating a JWT, instead focusing on the JWS.",
+          "createdAt": "2025-06-12T07:44:17Z",
+          "updatedAt": "2025-06-12T07:44:17Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "body": "Updated abstract and adjusted intro. Minor changes to terminology. Will continue with the data objects tomorrow.",
+          "createdAt": "2025-06-12T10:21:28Z",
+          "updatedAt": "2025-06-12T10:21:28Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOLDmL8c6t9E7e",
@@ -628,6 +650,40 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOLDmL8c6ae98D",
+      "title": "Added `pkds` header param draft-bastian-jose-dvs.md",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/20",
+      "state": "OPEN",
+      "author": "AltmannPeter",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
+      "createdAt": "2025-06-14T02:09:51Z",
+      "updatedAt": "2025-06-14T02:18:23Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
+      "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
+      "headRefName": "patch-2",
+      "headRefOid": "500767f7770225cf930123c52a181afdb8e81b94",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "body": "I am unsure about the following:\r\n\r\n1. Do we need to register the suite names?\r\n2. Should we allow any other values than jwk and jwk_thumbprint? The JWS Producer's key makes sense to make explicit and not require dereferencing as we emphasize \"self containedness\". The recipient key is out of band though, so I am not sure we should limit to jwk and jwk_thumbprint there.\r\n3. params is set to required, but contains only optional fields as all fields have safe defaults to use if omitted. Does it look weird to have a parent as required if it may be empty?",
+          "createdAt": "2025-06-14T02:18:22Z",
+          "updatedAt": "2025-06-14T02:18:22Z"
+        }
+      ],
+      "reviews": []
     }
   ]
 }
