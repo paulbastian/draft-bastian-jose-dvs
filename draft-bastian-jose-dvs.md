@@ -112,13 +112,13 @@ The `pkds` Header Parameter value MUST be a JSON object with the following field
 
 * `suite` (string, REQUIRED): Identifies the key agreement and key derivation suite used to derive the MAC key. The value MUST be a registered name (for example "ECDH-HKDF-SHA256"). Key agreement parameters are determined by the provided DH-KA public keys. Implementations MUST reject any suite value that is not registered or not recognized.
 * `ppk` (object, REQUIRED):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain exactly one of the following fields:
-  * `jwk` (object): A JSON Web Key [RFC7517]. This field SHOULD be used when the key is not conveyed within the JWS Payload. The JWK MUST include a "use" member with the value "enc".
-  * `jwk_thumbprint` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK conveyed within the JWS Payload. The referenced JWK MUST include a "use" member with the value "enc".
+  * `jwk` (object): A JSON Web Key [RFC7517]. This field SHOULD be used when the key is not conveyed within the JWS Payload. The JWK MUST include a "key_ops" member with the value "[deriveBits]".
+  * `kid` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK conveyed within the JWS Payload. The referenced JWK MUST include a "key_ops" member with the value "[deriveBits]".
 
   Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
 * `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain exactly one of the following fields:
-  * `jwk` (object): A JSON Web Key [RFC7517]. The JWK MUST include a "use" member with the value "enc".
-  * `jwk_thumbprint` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK communicated by the recipient through out-of-band means. The referenced JWK MUST include a "use" member with the value "enc".
+  * `jwk` (object): A JSON Web Key [RFC7517]. The JWK MUST include a "key_ops" member with the value "[deriveBits]".
+  * `kid` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK communicated by the recipient through out-of-band means. The referenced JWK MUST include a "key_ops" member with the value "[deriveBits]".
 
   Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
 
