@@ -111,21 +111,19 @@ The pkds protected header parameter specifies the inputs needed to derive a symm
 The `pkds` Header Parameter value MUST be a JSON object with the following fields:
 
 * `suite` (string, REQUIRED): Identifies the key agreement and key derivation suite used to derive the MAC key. The value MUST be a registered name (for example "ECDH-HKDF-SHA256"). Key agreement parameters are determined by the provided DH-KA public keys. Implementations MUST reject any suite value that is not registered or not recognized.
-* `ppk` (object, REQUIRED):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain exactly one of the following fields:
-  * `jwk` (object): A JSON Web Key [RFC7517]. This field SHOULD be used when the key is not conveyed within the JWS Payload. The JWK MUST include a "key_ops" member with the value "[deriveBits]".
-  * `kid` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK conveyed within the JWS Payload. The referenced JWK MUST include a "key_ops" member with the value "[deriveBits]".
+* `spk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `spk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
 
-  Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
-* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain exactly one of the following fields:
-  * `jwk` (object): A JSON Web Key [RFC7517]. The JWK MUST include a "key_ops" member with the value "[deriveBits]".
-  * `kid` (string): A base64url-encoded JWK Thumbprint [RFC7638] corresponding to a JWK communicated by the recipient through out-of-band means. The referenced JWK MUST include a "key_ops" member with the value "[deriveBits]".
+  Implementations MUST reject a JWS if the `spk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
+* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
 
   Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
 
-* `params` (object, REQUIRED): Contains the inputs to the key derivation function specified by `suite`. The `params` object MUST contain the following members:
+* `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by `suite`. The `params` object MUST contain the following members:
   * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF. The info parameter can be zero-length.
   * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF identified by `suite`.
-  * `length` (integer, OPTIONAL): The length of the derived MAC key, in octets. If omitted, the length MUST default to the minimum length required by the MAC algorithm. Implementations MUST reject the JWS if the length is invalid for the MAC algorithm identified by the JWS `alg` header.
+* `length` (integer, OPTIONAL): The length of the derived MAC key, in octets. If omitted, the length MUST default to the minimum length required by the MAC algorithm. Implementations MUST reject the JWS if the length is invalid for the MAC algorithm identified by the JWS `alg` header.
+
+For a machine-readable definition of these fields, see the JSON Schema in {{Appendix A}}.
 
 # Cryptographic Dependencies
 
@@ -293,4 +291,105 @@ Thanks to:
 - Brian Campbell
 - John Bradley
 
+# Appendix A. JSON Schema for the "pkds" Header Parameter  (Normative)
+
+```JSON
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/pkds.schema.json",
+  "title": "JOSE Header Parameter: pkds",
+  "type": "object",
+  "properties": {
+    "suite": {
+      "type": "string"
+    },
+    "spk": {
+      "$ref": "#/$defs/keyRef"
+    },
+    "rpk": {
+      "$ref": "#/$defs/keyRef"
+    },
+    "params": {
+      "type": "object"
+    },
+    "length": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "suite",
+    "rpk"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "keyRef": {
+      "type": "object",
+      "properties": {
+        "jwk": {
+          "type": "object"
+        },
+        "kid": {
+          "type": "string"
+        },
+        "jkt": {
+          "type": "string"
+        },
+        "jku": {
+          "type": "string"
+        },
+        "x5c": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "x5u": {
+          "type": "string"
+        },
+        "x5t": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "jwk"
+          ]
+        },
+        {
+          "required": [
+            "kid"
+          ]
+        },
+        {
+          "required": [
+            "jkt"
+          ]
+        },
+        {
+          "required": [
+            "jku"
+          ]
+        },
+        {
+          "required": [
+            "x5c"
+          ]
+        },
+        {
+          "required": [
+            "x5u"
+          ]
+        },
+        {
+          "required": [
+            "x5t"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
+```
 
