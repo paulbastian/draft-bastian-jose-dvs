@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-15T01:21:03.940371+00:00",
+  "timestamp": "2025-06-17T01:13:58.840076+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -663,13 +663,13 @@
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-06-14T02:18:23Z",
+      "updatedAt": "2025-06-16T14:18:02Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-2",
-      "headRefOid": "500767f7770225cf930123c52a181afdb8e81b94",
+      "headRefOid": "b04182333c2456e4eaab06c703a6060f0aa3d3b7",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -678,9 +678,9 @@
         {
           "author": "AltmannPeter",
           "authorAssociation": "NONE",
-          "body": "I am unsure about the following:\r\n\r\n1. Do we need to register the suite names?\r\n2. Should we allow any other values than jwk and jwk_thumbprint? The JWS Producer's key makes sense to make explicit and not require dereferencing as we emphasize \"self containedness\". The recipient key is out of band though, so I am not sure we should limit to jwk and jwk_thumbprint there.\r\n3. params is set to required, but contains only optional fields as all fields have safe defaults to use if omitted. Does it look weird to have a parent as required if it may be empty?",
+          "body": "I am unsure about the following:\r\n\r\n1. Do we need to register the suite names?\r\n2. Should we allow any other values than jwk and kid (for jwk thumbprint)? The JWS Producer's key makes sense to make explicit and not require dereferencing as we emphasize \"self containedness\". The recipient key is out of band though, so I am not sure we should limit to jwk and jwk thumbprint there.\r\n3. params is set to required, but contains only optional fields as all fields have safe defaults to use if omitted. Does it look weird to have a parent as required if it may be empty?",
           "createdAt": "2025-06-14T02:18:22Z",
-          "updatedAt": "2025-06-14T02:18:22Z"
+          "updatedAt": "2025-06-16T14:18:02Z"
         }
       ],
       "reviews": []
