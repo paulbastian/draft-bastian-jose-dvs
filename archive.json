@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-19T01:13:49.650184+00:00",
+  "timestamp": "2025-06-29T01:21:56.302875+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -167,7 +167,7 @@
       "id": "I_kwDOLDmL8c63vSjP",
       "title": "Add Co-Authors",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mickrau",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -176,8 +176,8 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-05-22T09:06:53Z",
-      "updatedAt": "2025-06-04T11:20:29Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-27T12:30:36Z",
+      "closedAt": "2025-06-27T12:30:36Z",
       "comments": [
         {
           "author": "mickrau",
@@ -288,7 +288,7 @@
       "id": "I_kwDOLDmL8c63vgvb",
       "title": "Use HKDF instead of HPKE as the default and mandatory to implement key derivation function.",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/15",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Razumain",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -297,8 +297,8 @@
       "labels": [],
       "body": "Use of HPKE has a number of drawbacks (even if it has its pros as well)\n\n- It is basically a function for providing encryption. We only use half (The key derivation part) which works, but sort of defeats the purpose of HPKE. When using a standard HPKE implementation, I will have to specify an encryption algorithm that will never be used. This will likely confuse some implementers.\n- HPKE is informational, and in relation to JOSE that may create some downref problems. Not very severe, but still.\n\nAnother argument is that HKDF of a Diffie-Hellman shared secret is very easy and straightforward. And does everything we need.\n\n\nI propose:\n\n- Keep using an identifier that specifies exactly what key derivation method that is used, but include a HKDF based method that does not involve HPKE.\n- Make the HKDF variant mandatory to support.\n\nI'm open to keeping HPKE variants, but I would actually prefer to get rid of HPKE as it isn't a perfect fit for just key derivation.",
       "createdAt": "2025-05-22T09:26:11Z",
-      "updatedAt": "2025-06-04T10:49:16Z",
-      "closedAt": null,
+      "updatedAt": "2025-06-27T12:30:48Z",
+      "closedAt": "2025-06-27T12:30:48Z",
       "comments": [
         {
           "author": "Razumain",
