@@ -92,16 +92,6 @@ This algorithm is intended for use with digital credentials ecosystems, includin
 
 {::boilerplate bcp14-tagged}
 
-# Terminology
-
-The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by {{RFC7515}}.
-
-Signing Party:
-: The Party that performs the key agreement first and generates the MAC. Similar to a Signer.
-
-Verifying Party:
-: The Party that performs the key agreement second, generates the MAC and compares it to a given value. Similar to a Verifier.
-
 # The "pkds" Header Parameter
 
 The pkds protected header parameter specifies the inputs needed to derive a symmetric key for MAC computation using a key agreement and derivation scheme. Its value is a JSON object that includes identifiers, public keys, and algorithm-specific parameters relevant to the derivation.
@@ -110,17 +100,17 @@ The pkds protected header parameter specifies the inputs needed to derive a symm
 
 The `pkds` Header Parameter value MUST be a JSON object with the following fields:
 
-* `suite` (string, REQUIRED): Identifies the key agreement and key derivation suite used to derive the MAC key. The value MUST be a registered name (for example "ECDH-HKDF-SHA256"). Key agreement parameters are determined by the provided DH-KA public keys. Implementations MUST reject any suite value that is not registered or not recognized.
-* `spk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `spk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
-
-  Implementations MUST reject a JWS if the `spk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
 * `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
 
-  Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time or is incompatible with the declared suite.
+  Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time.
+  
+* `ppk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
 
-* `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by `suite`. The `params` object MUST contain the following members:
-  * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF. The info parameter can be zero-length.
-  * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF identified by `suite`.
+  Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the key information in `rpk`.
+
+* `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `params` object MUST contain the following members:
+  * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
+  * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
 * `length` (integer, OPTIONAL): The length of the derived MAC key, in octets. If omitted, the length MUST default to the minimum length required by the MAC algorithm. Implementations MUST reject the JWS if the length is invalid for the MAC algorithm identified by the JWS `alg` header.
 
 For a machine-readable definition of these fields, see the JSON Schema in {{Appendix A}}.
@@ -300,10 +290,7 @@ Thanks to:
   "title": "JOSE Header Parameter: pkds",
   "type": "object",
   "properties": {
-    "suite": {
-      "type": "string"
-    },
-    "spk": {
+    "ppk": {
       "$ref": "#/$defs/keyRef"
     },
     "rpk": {
@@ -317,7 +304,6 @@ Thanks to:
     }
   },
   "required": [
-    "suite",
     "rpk"
   ],
   "additionalProperties": false,
