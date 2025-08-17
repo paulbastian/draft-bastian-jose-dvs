@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-29T01:21:56.302875+00:00",
+  "timestamp": "2025-08-17T01:20:01.591844+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -353,6 +353,30 @@
           "updatedAt": "2025-06-04T11:17:40Z"
         }
       ]
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOLDmL8c7GLMAN",
+      "title": "Title suggestion",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/21",
+      "state": "OPEN",
+      "author": "AltmannPeter",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "As earlier discussed, DVS is not what we are doing here, and is not what we should be doing either :).\n\ntitle: \"Public Key Derived Secrets for JOSE\"\nabbrev: \"PKDS for JOSE\"",
+      "createdAt": "2025-08-15T09:26:19Z",
+      "updatedAt": "2025-08-15T14:45:40Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "Agreed. Depending on where the scope of the draft ends up, it could also be \"public key derived MACs\".\nWe need to decide whether we define  a common mechanism to drive a shared secret and then on top algorithms to combine this with HMAC or whether to combine both into a single, simpler approach.",
+          "createdAt": "2025-08-15T14:41:24Z",
+          "updatedAt": "2025-08-15T14:45:40Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -601,13 +625,13 @@
       "labels": [],
       "body": "Updated introduction",
       "createdAt": "2025-06-10T05:55:40Z",
-      "updatedAt": "2025-06-12T10:21:28Z",
+      "updatedAt": "2025-08-15T08:38:26Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-1",
-      "headRefOid": "b0ba50f9dade7bc4bef57e6a7183366aaa9c90f9",
+      "headRefOid": "67171643e555396707b28aa0d18c06166467b91c",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -663,13 +687,13 @@
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-06-17T10:08:07Z",
+      "updatedAt": "2025-08-15T09:10:11Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-2",
-      "headRefOid": "cd1c5fcd06539ccfa3b6279e9e1d001a5fd9316c",
+      "headRefOid": "a7862126caa734ea51731454484f7e54e0be9601",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
