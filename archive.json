@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-17T01:20:01.591844+00:00",
+  "timestamp": "2025-08-21T01:08:41.768196+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -625,7 +625,7 @@
       "labels": [],
       "body": "Updated introduction",
       "createdAt": "2025-06-10T05:55:40Z",
-      "updatedAt": "2025-08-15T08:38:26Z",
+      "updatedAt": "2025-08-19T15:16:30Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
@@ -672,6 +672,26 @@
           "createdAt": "2025-06-11T19:43:22Z",
           "updatedAt": "2025-06-11T19:43:22Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOLDmL8c66uq6l",
+          "commit": {
+            "abbreviatedOid": "6717164"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Was there any previous work that you align the Producer/Recipient terminology with?\r\nAlso, I think that we shouldn't name alg values in the introduction yet, but just mention that they should be fully specified",
+          "createdAt": "2025-08-19T15:15:19Z",
+          "updatedAt": "2025-08-19T15:16:30Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nThis specification also defines new `alg` parameter values, that are fully-specified according to [Fully Specified Algorithms](https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html).\r\n```",
+              "createdAt": "2025-08-19T15:15:20Z",
+              "updatedAt": "2025-08-19T15:16:30Z"
+            }
+          ]
         }
       ]
     },
@@ -687,7 +707,7 @@
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-08-15T09:10:11Z",
+      "updatedAt": "2025-08-19T15:45:33Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
@@ -714,7 +734,90 @@
           "updatedAt": "2025-06-17T10:08:07Z"
         }
       ],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c66uuqA",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "review from @mickrau and me",
+          "createdAt": "2025-08-19T15:19:24Z",
+          "updatedAt": "2025-08-19T15:44:44Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "this will likely conflict with the introduciton PR?",
+              "createdAt": "2025-08-19T15:19:24Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.\r\n```",
+              "createdAt": "2025-08-19T15:25:47Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\r\n* `ppk` (object, OPTIONAL):  The JWS Producer\u2019s public key used in DH-KA. The `ppk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.\r\n```",
+              "createdAt": "2025-08-19T15:26:45Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 39,
+              "body": "```suggestion\r\n# Appendix A. JSON Schema for the \"pkds\" Header Parameter  {#appenix-a}\r\n```",
+              "createdAt": "2025-08-19T15:27:57Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\nFor a machine-readable definition of these fields, see the JSON Schema in (#appendix-a).\r\n```",
+              "createdAt": "2025-08-19T15:29:01Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "it's unclear what is meant by \"key claim\". We should at least recommend some options, likely \"kid\"?",
+              "createdAt": "2025-08-19T15:34:20Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 22,
+              "body": "Why is ppk OPTIONAL? I guess you are hinting that in SD-JWT case we would take this from \"cnf\"? Better make it RECOMMENDED unless known from context/other claims",
+              "createdAt": "2025-08-19T15:43:00Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "I would prefer name this closer to key derviation, e.g. kd-params, or kd",
+              "createdAt": "2025-08-19T15:43:55Z",
+              "updatedAt": "2025-08-19T15:44:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c66vGEz",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-19T15:45:33Z",
+          "updatedAt": "2025-08-19T15:45:33Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Should we rather fix the key length over the `alg`?",
+              "createdAt": "2025-08-19T15:45:33Z",
+              "updatedAt": "2025-08-19T15:45:33Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
