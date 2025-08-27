@@ -75,7 +75,7 @@ JSON Web Signature (JWS) [RFC 7515] and JSON Web Algorithms (JWA) [RFC 7518] spe
 
 This specification defines a new protected header parameter, `pkds` (public key derived secret), which contains information required to derive an HMAC key using a Diffie-Hellman key agreement (DH-KA) and a key derivation function (KDF). The JWS Producer's DH-KA public key appears either in the `pkds` parameter or in a claims element for use in the key agreement computation. The `pkds` parameter also includes the JWS Recipient's DH-KA public key, used by the JWS Producer during key agreement, as well as the KDF parameters necessary for deriving the MAC key.
 
-This specification also defines new `alg` parameter values. These values are of the form `<HMAC alg param value>-PKDS-<n>`, where the prefix indicates the HMAC algorithm and `<n>` identifies the KDF. The ECDH curve is inferred from the JWS Recipient's DH-KA public key.
+This specification also defines new `alg` parameter values, that are fully-specified according to [Fully Specified Algorithms](https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html).
 
 The method is useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational concerns. It enables the use of HMAC-based signatures that can be validated solely with information embedded in a JWS.
 
