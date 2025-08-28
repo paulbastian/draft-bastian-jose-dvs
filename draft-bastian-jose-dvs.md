@@ -79,7 +79,7 @@ This specification also defines new `alg` parameter values, that are fully-speci
 
 The method is useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational concerns. It enables the use of HMAC-based signatures that can be validated solely with information embedded in a JWS.
 
-A primary motivation for this work is to enable HMAC signature validation from information contained within an {{SD-JWT}}, mirroring capabilities available in credential formats like {{mdoc MSO}}.
+A primary motivation for this work is to enable HMAC signature validation from information contained within an {{SD-JWT}}, mirroring capabilities available in credential formats like {{ISO-18013-5}}.
 
 # Conventions and Definitions
 
