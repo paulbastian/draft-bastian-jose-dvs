@@ -111,7 +111,6 @@ The `pkds` Header Parameter value MUST be a JSON object with the following field
 * `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `params` object MUST contain the following members:
   * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
   * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
-* `length` (integer, OPTIONAL): The length of the derived MAC key, in octets. If omitted, the length MUST default to the minimum length required by the MAC algorithm. Implementations MUST reject the JWS if the length is invalid for the MAC algorithm identified by the JWS `alg` header.
 
 For a machine-readable definition of these fields, see the JSON Schema in {{Appendix A}}.
 
