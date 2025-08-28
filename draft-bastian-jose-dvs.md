@@ -112,7 +112,7 @@ The `pkds` Header Parameter value MUST be a JSON object with the following field
   * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
   * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
 
-For a machine-readable definition of these fields, see the JSON Schema in {{Appendix A}}.
+For a machine-readable definition of these fields, see the JSON Schema in (#appendix-a).
 
 # Cryptographic Dependencies
 
@@ -280,7 +280,7 @@ Thanks to:
 - Brian Campbell
 - John Bradley
 
-# Appendix A. JSON Schema for the "pkds" Header Parameter  (Normative)
+# Appendix A. JSON Schema for the "pkds" Header Parameter  {#appenix-a}
 
 ```JSON
 {
