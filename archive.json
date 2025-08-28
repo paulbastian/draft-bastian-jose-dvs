@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-21T01:08:41.768196+00:00",
+  "timestamp": "2025-08-28T01:07:37.366755+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -625,13 +625,13 @@
       "labels": [],
       "body": "Updated introduction",
       "createdAt": "2025-06-10T05:55:40Z",
-      "updatedAt": "2025-08-19T15:16:30Z",
+      "updatedAt": "2025-08-27T14:12:59Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-1",
-      "headRefOid": "67171643e555396707b28aa0d18c06166467b91c",
+      "headRefOid": "c0449b7987781b012a9a8a407552e172549e38ef",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -692,6 +692,26 @@
               "updatedAt": "2025-08-19T15:16:30Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68WUoI",
+          "commit": {
+            "abbreviatedOid": "6717164"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:09:07Z",
+          "updatedAt": "2025-08-27T14:09:08Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "I used the following analysis for the terminology from [RFC 7515](https://datatracker.ietf.org/doc/html/rfc7515):\r\n\r\n- [Producer, Creator, Originator] for the creator of the JWS. \"Producer\" is used 9 times; \"originator\" and \"creator\" is used 1 time each. \r\n- Relatedly, [recipient, consumer] with 13, and 2 uses.",
+              "createdAt": "2025-08-27T14:09:07Z",
+              "updatedAt": "2025-08-27T14:09:08Z"
+            }
+          ]
         }
       ]
     },
@@ -707,7 +727,7 @@
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-08-19T15:45:33Z",
+      "updatedAt": "2025-08-27T14:26:57Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
@@ -814,6 +834,106 @@
               "body": "Should we rather fix the key length over the `alg`?",
               "createdAt": "2025-08-19T15:45:33Z",
               "updatedAt": "2025-08-19T15:45:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68WcBr",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:16:20Z",
+          "updatedAt": "2025-08-27T14:16:21Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "I am not a fan of the word verifying party. The use of 'verifier' in RFC 7515 seems focused on the module that does signature verification. Recipient / consumer I read as referring to the actor who the JWS is sent to.",
+              "createdAt": "2025-08-27T14:16:20Z",
+              "updatedAt": "2025-08-27T14:16:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68Weoj",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:19:22Z",
+          "updatedAt": "2025-08-27T14:19:22Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "We could make it more specific by specifically mentioning 4.1.2 - 4.1.8.",
+              "createdAt": "2025-08-27T14:19:22Z",
+              "updatedAt": "2025-08-27T14:19:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68WhXy",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:22:06Z",
+          "updatedAt": "2025-08-27T14:22:07Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "Precisely, the requirement ought to be that they `ppk` can be unambiguously resolved. If it is defined in the `cnf`, there seems to be no reason to put the same key in the `pkds`.",
+              "createdAt": "2025-08-27T14:22:07Z",
+              "updatedAt": "2025-08-27T14:22:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68Wjm5",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:24:32Z",
+          "updatedAt": "2025-08-27T14:24:32Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "No objection. I would not since key derivation is implied, but clarity is never wrong :).",
+              "createdAt": "2025-08-27T14:24:32Z",
+              "updatedAt": "2025-08-27T14:24:32Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68Wl1W",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-27T14:26:56Z",
+          "updatedAt": "2025-08-27T14:26:57Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Not sure I follow. The `length` is meaningful only for the MAC key, and its length requirements are determined solely by the MAC, no? Even if it is the alg that determines it, the alg MUST NOT define a length that is incompatible with the MAC anyway. What I am missing :)?",
+              "createdAt": "2025-08-27T14:26:56Z",
+              "updatedAt": "2025-08-27T14:26:57Z"
             }
           ]
         }
