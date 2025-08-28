@@ -100,11 +100,11 @@ The pkds protected header parameter specifies the inputs needed to derive a symm
 
 The `pkds` Header Parameter value MUST be a JSON object with the following fields:
 
-* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
+* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.
 
   Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time.
   
-* `ppk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain at least one key claim as defined in {{RFC7515 Section 4.1}}.
+* `ppk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.
 
   Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the key information in `rpk`.
 
