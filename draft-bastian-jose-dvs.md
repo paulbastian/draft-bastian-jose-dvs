@@ -92,10 +92,10 @@ A primary motivation for this work is to enable HMAC signature validation from i
 
 {::boilerplate bcp14-tagged}
 
-**Producer**:  
+**Producer**:
 : The party that performs the DH-KA first, derives the MAC key via a KDF, constructs the JOSE Header and JWS Payload, and computes the JWS Signature.
 
-**Recipient**:  
+**Recipient**:
 : The party that performs the DH-KA second, derives the MAC key via information in the JWS, and validates the JWS using the MAC key according to {{RFC7515}}.
 
 # The "pkds" Header Parameter
@@ -378,4 +378,3 @@ Thanks to:
     }
   }
 }
-```
