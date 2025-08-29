@@ -10,16 +10,16 @@
 <meta content="Stefan Santesson" name="author">
 <meta content="Peter Lee Altmann" name="author">
 <meta content="
-       This specification defines structures and algorithm descriptions for the use of designated verifier signatures, based on a combination of Key Agreement and Message Authentication Code, with JOSE. 
+       This specification describes how to use a Diffie-Hellman key agreement (DH-KA) protocol and a key derivation function (KDF) to derive a symmetric Message Authentication Code (MAC) key using information conveyed within a JSON Web Signature (JWS). 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.30.0" name="generator">
 <meta content="JOSE" name="keyword">
 <meta content="JWS" name="keyword">
 <meta content="designated verifier signature" name="keyword">
 <meta content="draft-bastian-jose-dvs-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.30.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -28,7 +28,7 @@
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
+    requests 2.32.4
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
@@ -1049,11 +1049,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">DVS for JOSE</td>
-<td class="right">June 2025</td>
+<td class="right">August 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bastian, et al.</td>
-<td class="center">Expires 12 December 2025</td>
+<td class="center">Expires 2 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-bastian-jose-dvs-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-10" class="published">10 June 2025</time>
+<time datetime="2025-08-29" class="published">29 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-12">12 December 2025</time></dd>
+<dd class="expires"><time datetime="2026-03-02">2 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1096,7 +1096,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Designated Verifier Signatures for JOSE</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This specification defines structures and algorithm descriptions for the use of designated verifier signatures, based on a combination of Key Agreement and Message Authentication Code, with JOSE.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This specification describes how to use a Diffie-Hellman key agreement (DH-KA) protocol and a key derivation function (KDF) to derive a symmetric Message Authentication Code (MAC) key using information conveyed within a JSON Web Signature (JWS).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1133,7 +1133,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1236,11 +1236,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Designated verifier signatures (DVS) are signature schemes in which signatures are generated, that can only be verified by a particular party. Unlike conventional digital signature schemes like ECDSA, this enables repudiable signatures.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This specification describes a general structure for designated verifier signature schemes and specified a set of instantiations that use a combination of an KA-DH (Diffie-Hellman key aggrement) with an MAC (Message Authentication Code algorithm).<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The combination of ECKA-DH and MAC is a established mechanism and used, for example, in the mobile driving licence (mDL) application, specified in <span>[<a href="#ISO-18013-5" class="cite xref">ISO-18013-5</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This specification and all described algorithms should respect the efforts for <a href="https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html">Fully Specified Algorithms</a>.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This algorithm is intended for use with digital credentials ecosystems, including the Issuer-Holder-Verifier model described by W3C VCDM or IETF SD-JWT-VC.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-1">JSON Web Signature (JWS) <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span> and JSON Web Algorithms (JWA) <span>[<a href="#RFC7518" class="cite xref">RFC7518</a>]</span> specify how to secure content with Hash-based Message Authentication Codes (HMAC) <span>[<a href="#RFC2104" class="cite xref">RFC2104</a>]</span> using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">This specification defines a new protected header parameter, <code>pkds</code> (public key derived secret), which contains information required to derive an HMAC key using a Diffie-Hellman key agreement (DH-KA) and a key derivation function (KDF). The JWS Producer's DH-KA public key appears either in the <code>pkds</code> parameter or in a claims element for use in the key agreement computation. The <code>pkds</code> parameter also includes the JWS Recipient's DH-KA public key, used by the JWS Producer during key agreement, as well as the KDF parameters necessary for deriving the MAC key.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This specification also defines new <code>alg</code> parameter values, that are fully-specified according to <a href="https://www.ietf.org/archive/id/draft-jones-jose-fully-specified-algorithms-00.html">Fully Specified Algorithms</a>.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">The method is useful in settings where pre-shared keys are undesirable or infeasible, and where direct key distribution or key wrapping introduces operational concerns. It enables the use of HMAC-based signatures that can be validated solely with information embedded in a JWS.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">A primary motivation for this work is to enable HMAC signature validation from information contained within an SD-JWT, mirroring capabilities available in credential formats like <span>[<a href="#ISO-18013-5" class="cite xref">ISO-18013-5</a>]</span>.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1261,14 +1261,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       </h2>
 <p id="section-3-1">The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-3-2">
-        <dt id="section-3-2.1">Signing Party:</dt>
+        <dt id="section-3-2.1">Producer:</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.2">
-          <p id="section-3-2.2.1">The Party that performs the key agreement first and generates the MAC. Similar to a Signer.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.2.1">The party that performs the DH-KA first, derives the MAC key via a KDF, constructs the JOSE Header and JWS Payload, and computes the JWS Signature.<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-3-2.3">Verifying Party:</dt>
+<dt id="section-3-2.3">Recipient:</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.4">
-          <p id="section-3-2.4.1">The Party that performs the key agreement second, generates the MAC and compares it to a given value. Similar to a Verifier.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.4.1">The party that performs the DH-KA second, derives the MAC key via information in the JWS, and validates the JWS using the MAC key according to <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span>.<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
