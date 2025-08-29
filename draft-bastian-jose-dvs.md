@@ -71,7 +71,7 @@ This specification describes how to use a Diffie-Hellman key agreement (DH-KA) p
 
 # Introduction
 
-JSON Web Signature (JWS) {{RFC7515}} and JSON Web Algorithms (JWA) {{RFC7518}} specify how to secure content with Hash-based Message Authentication Codes (HMAC) {{RFC2104}} using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS. 
+JSON Web Signature (JWS) {{RFC7515}} and JSON Web Algorithms (JWA) {{RFC7518}} specify how to secure content with Hash-based Message Authentication Codes (HMAC) {{RFC2104}} using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS.
 
 This specification defines a new protected header parameter, `pkds` (public key derived secret), which contains information required to derive an HMAC key using a Diffie-Hellman key agreement (DH-KA) and a key derivation function (KDF). The JWS Producer's DH-KA public key appears either in the `pkds` parameter or in a claims element for use in the key agreement computation. The `pkds` parameter also includes the JWS Recipient's DH-KA public key, used by the JWS Producer during key agreement, as well as the KDF parameters necessary for deriving the MAC key.
 
