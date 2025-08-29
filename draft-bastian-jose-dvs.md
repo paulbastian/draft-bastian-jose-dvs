@@ -302,9 +302,6 @@ Thanks to:
     },
     "params": {
       "type": "object"
-    },
-    "length": {
-      "type": "integer"
     }
   },
   "required": [
