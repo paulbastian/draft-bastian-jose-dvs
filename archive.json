@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-28T01:07:37.366755+00:00",
+  "timestamp": "2025-08-31T01:12:24.771381+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -361,12 +361,12 @@
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/21",
       "state": "OPEN",
       "author": "AltmannPeter",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "As earlier discussed, DVS is not what we are doing here, and is not what we should be doing either :).\n\ntitle: \"Public Key Derived Secrets for JOSE\"\nabbrev: \"PKDS for JOSE\"",
       "createdAt": "2025-08-15T09:26:19Z",
-      "updatedAt": "2025-08-15T14:45:40Z",
+      "updatedAt": "2025-08-28T06:59:19Z",
       "closedAt": null,
       "comments": [
         {
@@ -375,8 +375,47 @@
           "body": "Agreed. Depending on where the scope of the draft ends up, it could also be \"public key derived MACs\".\nWe need to decide whether we define  a common mechanism to drive a shared secret and then on top algorithms to combine this with HMAC or whether to combine both into a single, simpler approach.",
           "createdAt": "2025-08-15T14:41:24Z",
           "updatedAt": "2025-08-15T14:45:40Z"
+        },
+        {
+          "author": "Razumain",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Alternative:\n\nPublic Key Derived Secrets for JOSE HMAC signatures.\n\n bit longer but more precise",
+          "createdAt": "2025-08-28T06:59:19Z",
+          "updatedAt": "2025-08-28T06:59:19Z"
         }
       ]
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOLDmL8c7IZnkI",
+      "title": "Restrict options for `rpk`",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/22",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Allow everything in RFC7515 to reference a key or only allow a subset?",
+      "createdAt": "2025-08-28T07:25:23Z",
+      "updatedAt": "2025-08-28T07:25:23Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOLDmL8c7IZrAq",
+      "title": "I would prefer name this closer to key derviation, e.g. kd-params, or kd",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/23",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "I would prefer name this closer to key derviation, e.g. kd-params, or kd\r\n\r\n_Originally posted by @paulbastian in https://github.com/paulbastian/draft-bastian-jose-dvs/pull/20#discussion_r2285665323_\r\n            ",
+      "createdAt": "2025-08-28T07:30:05Z",
+      "updatedAt": "2025-08-28T07:30:05Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -618,42 +657,44 @@
       "id": "PR_kwDOLDmL8c6Zyb-H",
       "title": "Update introduction for draft-bastian-jose-dvs.md",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/19",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "AltmannPeter",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Updated introduction",
       "createdAt": "2025-06-10T05:55:40Z",
-      "updatedAt": "2025-08-27T14:12:59Z",
+      "updatedAt": "2025-08-29T17:51:30Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "aaa9e9cfa0bff9d6da15ac4d4e99ab00d4b6fadc",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-1",
-      "headRefOid": "c0449b7987781b012a9a8a407552e172549e38ef",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0019e8325db3ca4597c9258f3689dde85b0acd39",
+      "closedAt": "2025-08-29T17:51:30Z",
+      "mergedAt": "2025-08-29T17:51:30Z",
+      "mergedBy": "paulbastian",
+      "mergeCommit": {
+        "oid": "4262abb596578e67c7dbc6be47eafe735d3381f3"
+      },
       "comments": [
         {
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "> Two points to discuss: 1- do we need to distinuguish Issuer and Presenter? Imo for the context of this draft having two parties should by enough? 2- We need to align on the terminology for the roles/entities. In my opinion, we should either stick to the very generic terminology(producing/generating and receiving/recipient) or we adopt the three party model and take the vocabular used in SD-JWT\r\n\r\nGotten similar feedback from Stefan. IMO:\r\n\r\n1. I built on RFC 7800 (which has three actors and I used their terms). Stefan also pointed out that we likely should not focus on RFC 7800, in which case there is no reason to have three actors, or perhaps even any actors at all.\r\n2. Let us stick with generic terminology as it aligns better with RFC 7515 / 7518.\r\n\r\nWill update today according to the above.",
           "createdAt": "2025-06-12T05:10:16Z",
           "updatedAt": "2025-06-12T05:10:16Z"
         },
         {
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Update done. Also, made the text more general by not mandating a JWT, instead focusing on the JWS.",
           "createdAt": "2025-06-12T07:44:17Z",
           "updatedAt": "2025-06-12T07:44:17Z"
         },
         {
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Updated abstract and adjusted intro. Minor changes to terminology. Will continue with the data objects tomorrow.",
           "createdAt": "2025-06-12T10:21:28Z",
           "updatedAt": "2025-06-12T10:21:28Z"
@@ -699,7 +740,7 @@
             "abbreviatedOid": "6717164"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:09:07Z",
@@ -712,6 +753,99 @@
               "updatedAt": "2025-08-27T14:09:08Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68juQO",
+          "commit": {
+            "abbreviatedOid": "c0449b7"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-28T06:58:50Z",
+          "updatedAt": "2025-08-28T06:58:50Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\nA primary motivation for this work is to enable HMAC signature validation from information contained within an {{SD-JWT}}, mirroring capabilities available in credential formats like {{ISO-18013-5}}.\r\n```\r\nWe need a reference in our informative section for SD-JWT draft.",
+              "createdAt": "2025-08-28T06:58:50Z",
+              "updatedAt": "2025-08-28T06:58:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68jzuN",
+          "commit": {
+            "abbreviatedOid": "c0449b7"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-28T07:06:35Z",
+          "updatedAt": "2025-08-28T07:06:35Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nJSON Web Signature (JWS) {{RFC7515}} and JSON Web Algorithms (JWA) [RFC 7518] specify how to secure content with Hash-based Message Authentication Codes (HMAC) [RFC 2104] using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS. \r\n```",
+              "createdAt": "2025-08-28T07:06:35Z",
+              "updatedAt": "2025-08-28T07:06:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68j4_u",
+          "commit": {
+            "abbreviatedOid": "a8459bb"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-28T07:13:53Z",
+          "updatedAt": "2025-08-28T07:13:53Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "```suggestion\r\nA primary motivation for this work is to enable HMAC signature validation from information contained within an SD-JWT, mirroring capabilities available in credential formats like {{ISO-18013-5}}.\r\n```",
+              "createdAt": "2025-08-28T07:13:53Z",
+              "updatedAt": "2025-08-28T07:13:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68j5Pa",
+          "commit": {
+            "abbreviatedOid": "5af0e59"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-28T07:14:14Z",
+          "updatedAt": "2025-08-28T07:14:14Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68ymcY",
+          "commit": {
+            "abbreviatedOid": "5af0e59"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T05:10:04Z",
+          "updatedAt": "2025-08-29T05:10:04Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\nJSON Web Signature (JWS) {{RFC7515}} and JSON Web Algorithms (JWA) {{RFC7518}} specify how to secure content with Hash-based Message Authentication Codes (HMAC) {{RFC2104}} using a shared symmetric key. These specifications do not provide means to dynamically derive a MAC key for JWS validation using only public information embedded in the JWS. \r\n```",
+              "createdAt": "2025-08-29T05:10:04Z",
+              "updatedAt": "2025-08-29T05:11:40Z"
+            }
+          ]
         }
       ]
     },
@@ -722,18 +856,18 @@
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/20",
       "state": "OPEN",
       "author": "AltmannPeter",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-08-27T14:26:57Z",
+      "updatedAt": "2025-08-29T19:35:53Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
-      "baseRefOid": "d1e764246d14752001970fdc32ccbc5349e45151",
+      "baseRefOid": "4262abb596578e67c7dbc6be47eafe735d3381f3",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-2",
-      "headRefOid": "a7862126caa734ea51731454484f7e54e0be9601",
+      "headRefOid": "8392ecd740fff74eccbbeded1197d92c595396c2",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -741,14 +875,14 @@
       "comments": [
         {
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "I am unsure about the following:\r\n\r\n1. Do we need to register the suite names?\r\n2. Should we allow any other values than jwk and kid (for jwk thumbprint)? The JWS Producer's key makes sense to make explicit and not require dereferencing as we emphasize \"self containedness\". The recipient key is out of band though, so I am not sure we should limit to jwk and jwk thumbprint there. Possible additional value is jkt but I am not sure how that fits.\r\n3. params is set to required, but contains only optional fields as all fields have safe defaults to use if omitted. Does it look weird to have a parent as required if it may be empty?",
           "createdAt": "2025-06-14T02:18:22Z",
           "updatedAt": "2025-06-17T04:16:23Z"
         },
         {
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "New commit after discussing the questions above with Stefan.",
           "createdAt": "2025-06-17T10:08:07Z",
           "updatedAt": "2025-06-17T10:08:07Z"
@@ -843,7 +977,7 @@
             "abbreviatedOid": "a786212"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:16:20Z",
@@ -863,7 +997,7 @@
             "abbreviatedOid": "a786212"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:19:22Z",
@@ -883,7 +1017,7 @@
             "abbreviatedOid": "a786212"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:22:06Z",
@@ -903,7 +1037,7 @@
             "abbreviatedOid": "a786212"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:24:32Z",
@@ -923,7 +1057,7 @@
             "abbreviatedOid": "a786212"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-08-27T14:26:56Z",
@@ -934,6 +1068,146 @@
               "body": "Not sure I follow. The `length` is meaningful only for the MAC key, and its length requirements are determined solely by the MAC, no? Even if it is the alg that determines it, the alg MUST NOT define a length that is incompatible with the MAC anyway. What I am missing :)?",
               "createdAt": "2025-08-27T14:26:56Z",
               "updatedAt": "2025-08-27T14:26:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68kFDE",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-28T07:27:00Z",
+          "updatedAt": "2025-08-28T07:27:00Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "agreed",
+              "createdAt": "2025-08-28T07:27:00Z",
+              "updatedAt": "2025-08-28T07:27:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68kWTh",
+          "commit": {
+            "abbreviatedOid": "a786212"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-28T07:46:21Z",
+          "updatedAt": "2025-08-28T07:46:22Z",
+          "comments": [
+            {
+              "originalPosition": 29,
+              "body": "Agreed that fixing the length to the algorithm results in better interoparbility, while `length` doesn't provide security benefits\r\n```suggestion\r\n```",
+              "createdAt": "2025-08-28T07:46:21Z",
+              "updatedAt": "2025-08-28T07:46:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c68yqZ0",
+          "commit": {
+            "abbreviatedOid": "69f779f"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T05:20:57Z",
+          "updatedAt": "2025-08-29T05:20:58Z",
+          "comments": [
+            {
+              "originalPosition": 135,
+              "body": "```suggestion\r\n```",
+              "createdAt": "2025-08-29T05:20:57Z",
+              "updatedAt": "2025-08-29T05:20:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c686-3H",
+          "commit": {
+            "abbreviatedOid": "f82870f"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T17:52:45Z",
+          "updatedAt": "2025-08-29T17:52:51Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\n    }\n```\n",
+              "createdAt": "2025-08-29T17:52:45Z",
+              "updatedAt": "2025-08-29T17:52:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c687yRv",
+          "commit": {
+            "abbreviatedOid": "f7f16ee"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T19:14:04Z",
+          "updatedAt": "2025-08-29T19:14:04Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\n**Producer**:\r\n```",
+              "createdAt": "2025-08-29T19:14:04Z",
+              "updatedAt": "2025-08-29T19:14:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c687yf8",
+          "commit": {
+            "abbreviatedOid": "f7f16ee"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T19:14:13Z",
+          "updatedAt": "2025-08-29T19:14:14Z",
+          "comments": [
+            {
+              "originalPosition": 13,
+              "body": "```suggestion\r\n**Recipient**:\r\n```",
+              "createdAt": "2025-08-29T19:14:14Z",
+              "updatedAt": "2025-08-29T19:14:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c6873zV",
+          "commit": {
+            "abbreviatedOid": "f7f16ee"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-29T19:19:01Z",
+          "updatedAt": "2025-08-29T19:19:02Z",
+          "comments": [
+            {
+              "originalPosition": 156,
+              "body": "```suggestion\r\n```\r\n\r\n```",
+              "createdAt": "2025-08-29T19:19:02Z",
+              "updatedAt": "2025-08-29T19:19:02Z"
             }
           ]
         }
