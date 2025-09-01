@@ -5,11 +5,11 @@
 Javascript Object Signing and Encryption                      P. Bastian
 Internet-Draft                                                  M. Kraus
 Intended status: Informational                      Bundesdruckerei GmbH
-Expires: 2 March 2026                                       S. Santesson
+Expires: 5 March 2026                                       S. Santesson
                                                          IDsec Solutions
                                                            P. L. Altmann
                                        The Agency for Digital Government
-                                                          29 August 2025
+                                                        1 September 2025
 
 
                 Designated Verifier Signatures for JOSE
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 March 2026.
+   This Internet-Draft will expire on 5 March 2026.
 
 Copyright Notice
 
@@ -76,21 +76,25 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Terminology
-   4.  Cryptographic Dependencies
-   5.  Designated Verifier Signatures
-     5.1.  Signature Generation
-     5.2.  Signature Verification
-     5.3.  Signature Suites
-   6.  Designated Verifier Signatures for JOSE
-     6.1.  Example JWT
-   7.  Security Considerations
-     7.1.  Replay Attack Detection
-     7.2.  Limited Repudiability
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   4.  The "pkds" Header Parameter
+     4.1.  Syntax and semantics
+   5.  Cryptographic Dependencies
+   6.  Designated Verifier Signatures
+     6.1.  Signature Generation
+     6.2.  Signature Verification
+     6.3.  Signature Suites
+   7.  Designated Verifier Signatures for JOSE
+     7.1.  Example JWT
+   8.  Security Considerations
+     8.1.  Replay Attack Detection
+     8.2.  Limited Repudiability
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Acknowledgments
+   Appendix B.  Appendix A.  JSON Schema for the "pkds" Header
+           Parameter
    Authors' Addresses
 
 1.  Introduction
@@ -140,15 +144,58 @@ Table of Contents
    The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature",
    "JWS Signing Input" as defined by [RFC7515].
 
-   Producer:  The party that performs the DH-KA first, derives the MAC
+   *Producer*:  The party that performs the DH-KA first, derives the MAC
       key via a KDF, constructs the JOSE Header and JWS Payload, and
       computes the JWS Signature.
 
-   Recipient:  The party that performs the DH-KA second, derives the MAC
-      key via information in the JWS, and validates the JWS using the
-      MAC key according to [RFC7515].
+   *Recipient*:  The party that performs the DH-KA second, derives the
+      MAC key via information in the JWS, and validates the JWS using
+      the MAC key according to [RFC7515].
 
-4.  Cryptographic Dependencies
+4.  The "pkds" Header Parameter
+
+   The pkds protected header parameter specifies the inputs needed to
+   derive a symmetric key for MAC computation using a key agreement and
+   derivation scheme.  Its value is a JSON object that includes
+   identifiers, public keys, and algorithm-specific parameters relevant
+   to the derivation.
+
+4.1.  Syntax and semantics
+
+   The pkds Header Parameter value MUST be a JSON object with the
+   following fields:
+
+   *  rpk (object, REQUIRED): The Recipient's public key used in DH-KA.
+      The rpk object MUST contain at least one key claim as defined in
+      Section 4.1 of [RFC7515].
+
+      Implementations MUST reject a JWS if the rpk key cannot be
+      resolved unambiguously at validation time.
+
+   *  ppk (object, OPTIONAL): The JWS Producer’s public key used in DH-
+      KA.  The ppk object MUST contain at least one key claim as defined
+      in Section 4.1 of [RFC7515].
+
+      Implementations MUST reject a JWS if the ppk key cannot be
+      resolved unambiguously at validation time or is incompatible with
+      the key information in rpk.
+
+   *  params (object, OPTIONAL): Contains the inputs to the key
+      derivation function specified by the alg name.  The params object
+      MUST contain the following members:
+
+      -  info (string, OPTIONAL): Context- and application-specific
+         information used as the info parameter to the KDF.
+
+      -  salt (string, OPTIONAL): A base64url-encoded non-secret value
+         used as the salt input to the KDF.  If omitted, the KDF-
+         specific default applies.  If present, the decoded salt MUST be
+         valid for use with the KDF defined by the alg name.
+
+   For a machine-readable definition of these fields, see the JSON
+   Schema in Appendix A (Appendix B).
+
+5.  Cryptographic Dependencies
 
    DVS rely on the following primitives:
 
@@ -185,7 +232,7 @@ Table of Contents
 
       -  Nk: The length in bytes of key k.
 
-5.  Designated Verifier Signatures
+6.  Designated Verifier Signatures
 
    A designated verifier signature requires three components for an
    algorithm:
@@ -200,7 +247,7 @@ Table of Contents
    parameters need to be communicated to the Verifying Party before the
    generation of a Designated Verifier Signature.
 
-5.1.  Signature Generation
+6.1.  Signature Generation
 
    The generation of the Designated Verifier Signature takes the private
    key of the Signing Party, the public key of the Verifying Party and
@@ -230,7 +277,7 @@ Table of Contents
        signature = MacSign(k, msg)
        return signature
 
-5.2.  Signature Verification
+6.2.  Signature Verification
 
    The generation of the Designated Verifier Signature takes the private
    key of the Signing Party, the public key of the Verifying Party and
@@ -264,11 +311,11 @@ Table of Contents
        raise Exception("Designated Verifier Signature invalid")
        return
 
-5.3.  Signature Suites
+6.3.  Signature Suites
 
    Algorithms MUST follow the naming DVS-<DHKA>-<KDF>-<MAC>.
 
-6.  Designated Verifier Signatures for JOSE
+7.  Designated Verifier Signatures for JOSE
 
    Designated Verifier Signatures behave like a digital signature as
    described in Section 3 of [RFC7518] and are intended for use in JSON
@@ -298,7 +345,7 @@ Table of Contents
    jwk or kid to represent or reference it's public key according to
    [RFC7517].
 
-6.1.  Example JWT
+7.1.  Example JWT
 
    The JWT/JWS header:
 
@@ -334,16 +381,16 @@ Table of Contents
 |                       | HMAC using SHA-256          |                |
 +-----------------------+-----------------------------+----------------+
 
-7.  Security Considerations
+8.  Security Considerations
 
-7.1.  Replay Attack Detection
+8.1.  Replay Attack Detection
 
    Verifying party MUST ensure the freshness of signatures by utilizing
    ephemeral keys in rpk or by providing a nonce for nonce.
 
-7.2.  Limited Repudiability
+8.2.  Limited Repudiability
 
-   A malicious verifiying party can weaken the repudiability property by
+   A malicious verifying party can weaken the repudiability property by
    involving certain third parties in the protocol steps.
 
    *  One method is to have a third party observe all protocol steps so
@@ -356,7 +403,7 @@ Table of Contents
       can be done with Multi Party Computation involving all parties
       (see [TLS-NOTARY]).
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    Define:
 
@@ -364,9 +411,9 @@ Table of Contents
 
    *  alg values for DVS-P256-SHA256-HS256 and some more
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [BSI-TR-03111]
               "Technical Guideline BSI TR-03111: Elliptic Curve
@@ -408,7 +455,7 @@ Table of Contents
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [ISO-18013-5]
               "ISO/IEC 18013-5:2021, Personal identification — ISO-
@@ -427,6 +474,23 @@ Appendix A.  Acknowledgments
    *  Brian Campbell
 
    *  John Bradley
+
+Appendix B.  Appendix A.  JSON Schema for the "pkds" Header Parameter
+
+   JSON { "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "https://example.com/schemas/pkds.schema.json", "title": "JOSE
+   Header Parameter: pkds", "type": "object", "properties": { "ppk": {
+   "$ref": "#/$defs/keyRef" }, "rpk": { "$ref": "#/$defs/keyRef" },
+   "params": { "type": "object" } }, "required": [ "rpk" ],
+   "additionalProperties": false, "$defs": { "keyRef": { "type":
+   "object", "properties": { "jwk": { "type": "object" }, "kid": {
+   "type": "string" }, "jkt": { "type": "string" }, "jku": { "type":
+   "string" }, "x5c": { "type": "array", "items": { "type": "string" }
+   }, "x5u": { "type": "string" }, "x5t": { "type": "string" } },
+   "anyOf": [ { "required": [ "jwk" ] }, { "required": [ "kid" ] }, {
+   "required": [ "jkt" ] }, { "required": [ "jku" ] }, { "required": [
+   "x5c" ] }, { "required": [ "x5u" ] }, { "required": [ "x5t" ] } ],
+   "additionalProperties": false } } }
 
 Authors' Addresses
 
