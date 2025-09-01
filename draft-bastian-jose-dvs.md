@@ -96,11 +96,33 @@ A primary motivation for this work is to enable HMAC signature validation from i
 
 The draft uses "JSON Web Signature", "JOSE Header", "JWS Signature", "JWS Signing Input" as defined by {{RFC7515}}.
 
-Producer:
+**Producer**:
 : The party that performs the DH-KA first, derives the MAC key via a KDF, constructs the JOSE Header and JWS Payload, and computes the JWS Signature.
 
-Recipient:
+**Recipient**:
 : The party that performs the DH-KA second, derives the MAC key via information in the JWS, and validates the JWS using the MAC key according to {{RFC7515}}.
+
+# The "pkds" Header Parameter
+
+The pkds protected header parameter specifies the inputs needed to derive a symmetric key for MAC computation using a key agreement and derivation scheme. Its value is a JSON object that includes identifiers, public keys, and algorithm-specific parameters relevant to the derivation.
+
+## Syntax and semantics
+
+The `pkds` Header Parameter value MUST be a JSON object with the following fields:
+
+* `rpk` (object, REQUIRED): The Recipient's public key used in DH-KA. The `rpk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.
+
+  Implementations MUST reject a JWS if the `rpk` key cannot be resolved unambiguously at validation time.
+
+* `ppk` (object, OPTIONAL):  The JWS Producer’s public key used in DH-KA. The `ppk` object MUST contain at least one key claim as defined in Section 4.1 of {{RFC7515}}.
+
+  Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the key information in `rpk`.
+
+* `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `params` object MUST contain the following members:
+  * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
+  * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
+
+For a machine-readable definition of these fields, see the JSON Schema in [Appendix A](#appendix-a).
 
 # Cryptographic Dependencies
 
@@ -129,7 +151,6 @@ A designated verifier signature requires three components for an algorithm:
 3. a Message Authentication Code algorithm (MAC)
 
 In general, these parameters are chosen by the Signing Party. These parameters need to be communicated to the Verifying Party before the generation of a Designated Verifier Signature.
-
 
 ## Signature Generation
 
@@ -246,7 +267,7 @@ This specification described instantiations of Designated Verifier Signatures us
 Verifying party MUST ensure the freshness of signatures by utilizing ephemeral keys in `rpk` or by providing a nonce for `nonce`.
 
 ## Limited Repudiability
-A malicious verifiying party can weaken the repudiability property by involving certain third parties in the protocol steps.
+A malicious verifying party can weaken the repudiability property by involving certain third parties in the protocol steps.
 
 - One method is to have a third party observe all protocol steps so that third party can be sure that the signature originates by the signer.
 - Another method requires that the verifying party's public key is a shared key that has previously been calculated with the keys of certain specific third parties so that the proof of authenticity can be done with Multi Party Computation involving all parties (see {{TLS-NOTARY}}).
@@ -267,3 +288,98 @@ Thanks to:
 
 - Brian Campbell
 - John Bradley
+
+# Appendix A. JSON Schema for the "pkds" Header Parameter  {#appendix-a}
+
+```JSON
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/pkds.schema.json",
+  "title": "JOSE Header Parameter: pkds",
+  "type": "object",
+  "properties": {
+    "ppk": {
+      "$ref": "#/$defs/keyRef"
+    },
+    "rpk": {
+      "$ref": "#/$defs/keyRef"
+    },
+    "params": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "rpk"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "keyRef": {
+      "type": "object",
+      "properties": {
+        "jwk": {
+          "type": "object"
+        },
+        "kid": {
+          "type": "string"
+        },
+        "jkt": {
+          "type": "string"
+        },
+        "jku": {
+          "type": "string"
+        },
+        "x5c": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "x5u": {
+          "type": "string"
+        },
+        "x5t": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "jwk"
+          ]
+        },
+        {
+          "required": [
+            "kid"
+          ]
+        },
+        {
+          "required": [
+            "jkt"
+          ]
+        },
+        {
+          "required": [
+            "jku"
+          ]
+        },
+        {
+          "required": [
+            "x5c"
+          ]
+        },
+        {
+          "required": [
+            "x5u"
+          ]
+        },
+        {
+          "required": [
+            "x5t"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
+```
