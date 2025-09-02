@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-31T01:12:24.771381+00:00",
+  "timestamp": "2025-09-02T01:08:58.770964+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -366,7 +366,7 @@
       "labels": [],
       "body": "As earlier discussed, DVS is not what we are doing here, and is not what we should be doing either :).\n\ntitle: \"Public Key Derived Secrets for JOSE\"\nabbrev: \"PKDS for JOSE\"",
       "createdAt": "2025-08-15T09:26:19Z",
-      "updatedAt": "2025-08-28T06:59:19Z",
+      "updatedAt": "2025-09-01T20:07:45Z",
       "closedAt": null,
       "comments": [
         {
@@ -382,6 +382,27 @@
           "body": "Alternative:\n\nPublic Key Derived Secrets for JOSE HMAC signatures.\n\n bit longer but more precise",
           "createdAt": "2025-08-28T06:59:19Z",
           "updatedAt": "2025-08-28T06:59:19Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "Looking at [some](https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium) [examples](https://datatracker.ietf.org/doc/draft-ietf-jose-fully-specified-algorithms/) lately it seems more common to add \"for JOSE\" in the end.\n\nPublic Key Derived HMAC Signatures for JOSE\nPublic Key Derived HMACs for JOSE",
+          "createdAt": "2025-09-01T15:57:40Z",
+          "updatedAt": "2025-09-01T15:57:40Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Throwing this into the consideration bin: Public Key Derived Symmetric Signatures for JOSE",
+          "createdAt": "2025-09-01T19:05:56Z",
+          "updatedAt": "2025-09-01T19:05:56Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "My thinking is, that we are neither intending to create a general mechanism for secrets nor for other symmetric signatures ",
+          "createdAt": "2025-09-01T20:07:45Z",
+          "updatedAt": "2025-09-01T20:07:45Z"
         }
       ]
     },
@@ -854,24 +875,26 @@
       "id": "PR_kwDOLDmL8c6ae98D",
       "title": "Added `pkds` header param draft-bastian-jose-dvs.md",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/20",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "AltmannPeter",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Added a section to define the `pkds` parameter.\r\n\r\nHave not removed impacted parts later in the specification.",
       "createdAt": "2025-06-14T02:09:51Z",
-      "updatedAt": "2025-08-29T19:35:53Z",
+      "updatedAt": "2025-09-01T15:52:45Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "4262abb596578e67c7dbc6be47eafe735d3381f3",
       "headRepository": "AltmannPeter/draft-bastian-jose-dvs",
       "headRefName": "patch-2",
-      "headRefOid": "8392ecd740fff74eccbbeded1197d92c595396c2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "4743ac2e3d87c441e51bc0f9b890b165da5bef84",
+      "closedAt": "2025-09-01T15:52:45Z",
+      "mergedAt": "2025-09-01T15:52:45Z",
+      "mergedBy": "paulbastian",
+      "mergeCommit": {
+        "oid": "47747d48e049627e46dac7849ce963241b9ad7e0"
+      },
       "comments": [
         {
           "author": "AltmannPeter",
@@ -1210,6 +1233,59 @@
               "updatedAt": "2025-08-29T19:19:02Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c69FYnJ",
+          "commit": {
+            "abbreviatedOid": "8392ecd"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-01T06:53:09Z",
+          "updatedAt": "2025-09-01T06:53:09Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Why is this part being removed? Terminology section is very common in IETF standards",
+              "createdAt": "2025-09-01T06:53:09Z",
+              "updatedAt": "2025-09-01T06:53:10Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c69LR2A",
+          "commit": {
+            "abbreviatedOid": "8392ecd"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-01T14:12:49Z",
+          "updatedAt": "2025-09-01T14:12:50Z",
+          "comments": [
+            {
+              "originalPosition": 2,
+              "body": "```suggestion\r\n{::boilerplate bcp14-tagged}\r\n\r\n# Terminology\r\n\r\nThe draft uses \"JSON Web Signature\", \"JOSE Header\", \"JWS Signature\", \"JWS Signing Input\" as defined by {{RFC7515}}.\r\n```",
+              "createdAt": "2025-09-01T14:12:49Z",
+              "updatedAt": "2025-09-01T14:12:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c69MQmi",
+          "commit": {
+            "abbreviatedOid": "4743ac2"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-01T15:52:35Z",
+          "updatedAt": "2025-09-01T15:52:35Z",
+          "comments": []
         }
       ]
     }
