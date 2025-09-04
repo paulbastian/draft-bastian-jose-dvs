@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-02T01:08:58.770964+00:00",
+  "timestamp": "2025-09-04T01:04:24.803610+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -366,7 +366,7 @@
       "labels": [],
       "body": "As earlier discussed, DVS is not what we are doing here, and is not what we should be doing either :).\n\ntitle: \"Public Key Derived Secrets for JOSE\"\nabbrev: \"PKDS for JOSE\"",
       "createdAt": "2025-08-15T09:26:19Z",
-      "updatedAt": "2025-09-01T20:07:45Z",
+      "updatedAt": "2025-09-03T14:43:12Z",
       "closedAt": null,
       "comments": [
         {
@@ -403,6 +403,27 @@
           "body": "My thinking is, that we are neither intending to create a general mechanism for secrets nor for other symmetric signatures ",
           "createdAt": "2025-09-01T20:07:45Z",
           "updatedAt": "2025-09-01T20:07:45Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> My thinking is, that we are neither intending to create a general mechanism for secrets nor for other symmetric signatures\n\nWe are targeting HMAC for sure. \n\nAs for the general mechanism, what are are doing is a general mechanism to communicate all information required to derive a shared key in a token, or? \n\nSo, building on one of your earlier proposals: Public Key Derived HMAC Signatures for JOSE could be changed to reflect that it is the HMAC key you derive. I.e.,\n\n1. Public Key Derived HMAC **Keys** for JOSE, or \n2. Public Key Derived HMAC for JOSE\n\nI like the second shorter one since it is more crisp and to the point.",
+          "createdAt": "2025-09-03T10:47:53Z",
+          "updatedAt": "2025-09-03T10:48:49Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "> Public Key Derived HMAC for JOSE\n\nThat would be my favorite as well",
+          "createdAt": "2025-09-03T11:22:24Z",
+          "updatedAt": "2025-09-03T11:22:24Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "> > Public Key Derived HMAC for JOSE\n> \n> That would be my favorite as well\n\n@Razumain fine with this?",
+          "createdAt": "2025-09-03T14:43:12Z",
+          "updatedAt": "2025-09-03T14:43:12Z"
         }
       ]
     },
