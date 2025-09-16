@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-07T01:11:39.847744+00:00",
+  "timestamp": "2025-09-16T01:05:12.812762+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -366,7 +366,7 @@
       "labels": [],
       "body": "As earlier discussed, DVS is not what we are doing here, and is not what we should be doing either :).\n\ntitle: \"Public Key Derived Secrets for JOSE\"\nabbrev: \"PKDS for JOSE\"",
       "createdAt": "2025-08-15T09:26:19Z",
-      "updatedAt": "2025-09-06T16:46:28Z",
+      "updatedAt": "2025-09-15T16:22:00Z",
       "closedAt": null,
       "comments": [
         {
@@ -431,6 +431,13 @@
           "body": "I think you should just go with it @paulbastian ;).",
           "createdAt": "2025-09-06T16:46:28Z",
           "updatedAt": "2025-09-06T16:46:28Z"
+        },
+        {
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Public Key Derived HMAC for JOSE\n\nI'm also fine with the last proposal ",
+          "createdAt": "2025-09-15T16:22:00Z",
+          "updatedAt": "2025-09-15T16:22:00Z"
         }
       ]
     },
