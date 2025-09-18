@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-16T01:05:12.812762+00:00",
+  "timestamp": "2025-09-18T01:04:46.464083+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -470,6 +470,22 @@
       "body": "I would prefer name this closer to key derviation, e.g. kd-params, or kd\r\n\r\n_Originally posted by @paulbastian in https://github.com/paulbastian/draft-bastian-jose-dvs/pull/20#discussion_r2285665323_\r\n            ",
       "createdAt": "2025-08-28T07:30:05Z",
       "updatedAt": "2025-08-28T07:30:05Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOLDmL8c7L5dcu",
+      "title": "rework JOSE parameter description",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/24",
+      "state": "OPEN",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "move chapter 4 \"The \"pkds\" Header Parameter\" into chapter 7 \"Designated Verifier Signatures for JOSE\"",
+      "createdAt": "2025-09-16T07:24:15Z",
+      "updatedAt": "2025-09-16T07:24:15Z",
       "closedAt": null,
       "comments": []
     }
