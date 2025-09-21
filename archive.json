@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-18T01:04:46.464083+00:00",
+  "timestamp": "2025-09-21T01:12:36.050318+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -1339,6 +1339,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOLDmL8c6pjilT",
+      "title": "rename title, update terminology",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/25",
+      "state": "OPEN",
+      "author": "mickrau",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "solves #21  #24 ",
+      "createdAt": "2025-09-19T17:47:05Z",
+      "updatedAt": "2025-09-19T17:47:05Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "47747d48e049627e46dac7849ce963241b9ad7e0",
+      "headRepository": "paulbastian/draft-bastian-jose-dvs",
+      "headRefName": "feature/change_title",
+      "headRefOid": "8a03f455776f8e1f0de8262dc859420b1ecca6d9",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
