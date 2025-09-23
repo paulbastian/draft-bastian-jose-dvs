@@ -1380,7 +1380,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-5.1-4">Function:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-5">
 <pre>
-def pkdsSign(skS, pkR, msg, salt= "", info = "")
+def pkdsSign(ppk, rpk, msg, salt, info)
 
     dh =  DH(skS, pkR)
     prk = Extract(salt, dh)
