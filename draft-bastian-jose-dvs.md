@@ -162,14 +162,14 @@ Input:
  * `skR`: private key of the Recipient
  * `pkS`: public key of the Producer
  * `msg`: JWS Signing Input
- * `salt` : optional salt for key derivation (default="")
- * `info` : optional info for key derivation (default="")
+ * `salt` : Optional salt for key derivation
+ * `info` : Optional info for key derivation
  * `signature` : the Message Authentication Code
 
 Function:
 
 ~~~
-def pkdsVerify(skR, pkS, msg, salt = "", info = "", signature)
+def pkdsVerify(skR, pkS, msg, signature, salt, info)
 
     dh =  DH(skR, pkS)
     prk = Extract(salt, dh)
