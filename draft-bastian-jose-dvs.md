@@ -138,7 +138,7 @@ Input:
  * `skS`: private key of the Producer
  * `pkR`: public key of the Recipient
  * `msg`: JWS Signing Input
- * `salt` : optional Salt for key derivation (default="")
+ * `salt` : Optional salt for key derivation
  * `info` : optional info for key derivation (default="")
 
 Function:
