@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-21T01:12:36.050318+00:00",
+  "timestamp": "2025-09-23T01:05:25.024294+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -1352,7 +1352,7 @@
       "labels": [],
       "body": "solves #21  #24 ",
       "createdAt": "2025-09-19T17:47:05Z",
-      "updatedAt": "2025-09-19T17:47:05Z",
+      "updatedAt": "2025-09-22T17:37:18Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "47747d48e049627e46dac7849ce963241b9ad7e0",
@@ -1364,7 +1364,428 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c7B9CxP",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:46:53Z",
+          "updatedAt": "2025-09-22T16:46:53Z",
+          "comments": [
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\n * `rpk`: public key of the Recipient\r\n```",
+              "createdAt": "2025-09-22T16:46:53Z",
+              "updatedAt": "2025-09-22T16:46:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9DWa",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:47:14Z",
+          "updatedAt": "2025-09-22T16:47:14Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\r\n * `ppk`: private key of the Producer\r\n```",
+              "createdAt": "2025-09-22T16:47:14Z",
+              "updatedAt": "2025-09-22T16:47:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9Kf7",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:51:44Z",
+          "updatedAt": "2025-09-22T16:51:44Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "```suggestion\r\n * `salt` : Optional salt for key derivation\r\n```",
+              "createdAt": "2025-09-22T16:51:44Z",
+              "updatedAt": "2025-09-22T16:55:34Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9MQo",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:52:49Z",
+          "updatedAt": "2025-09-22T16:52:49Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Why not rely on the RFC 5869 defaults? See https://www.rfc-editor.org/rfc/rfc5869#section-2.2",
+              "createdAt": "2025-09-22T16:52:49Z",
+              "updatedAt": "2025-09-22T16:52:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9RDc",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:55:58Z",
+          "updatedAt": "2025-09-22T16:55:59Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "```suggestion\r\n * `info` : Optional info for key derivation\r\n```",
+              "createdAt": "2025-09-22T16:55:58Z",
+              "updatedAt": "2025-09-22T16:55:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9SE5",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T16:56:47Z",
+          "updatedAt": "2025-09-22T16:56:47Z",
+          "comments": [
+            {
+              "originalPosition": 91,
+              "body": "Same as above, https://www.rfc-editor.org/rfc/rfc5869#section-2.3 already specifies the default. And if we want to set another KDF later, I would prefer we use the KDF default values.",
+              "createdAt": "2025-09-22T16:56:47Z",
+              "updatedAt": "2025-09-22T16:56:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9ZSM",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:02:50Z",
+          "updatedAt": "2025-09-22T17:02:51Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "```suggestion\r\ndef pkdsSign(ppk, rpk, msg, salt=b\"\", info =b\"\")\r\n```",
+              "createdAt": "2025-09-22T17:02:50Z",
+              "updatedAt": "2025-09-22T17:02:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9Zkr",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:03:06Z",
+          "updatedAt": "2025-09-22T17:03:07Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "Input is bytes.",
+              "createdAt": "2025-09-22T17:03:07Z",
+              "updatedAt": "2025-09-22T17:36:07Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9Z8I",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:03:26Z",
+          "updatedAt": "2025-09-22T17:03:27Z",
+          "comments": [
+            {
+              "originalPosition": 99,
+              "body": "```suggestion\r\n    dh =  DH(ppk, rpk)\r\n```",
+              "createdAt": "2025-09-22T17:03:26Z",
+              "updatedAt": "2025-09-22T17:03:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9dH_",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:06:37Z",
+          "updatedAt": "2025-09-22T17:06:37Z",
+          "comments": [
+            {
+              "originalPosition": 112,
+              "body": "```suggestion\r\n * `rpk`: private key of the Recipient\r\n```",
+              "createdAt": "2025-09-22T17:06:37Z",
+              "updatedAt": "2025-09-22T17:06:38Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9ddP",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:06:58Z",
+          "updatedAt": "2025-09-22T17:06:59Z",
+          "comments": [
+            {
+              "originalPosition": 113,
+              "body": "```suggestion\r\n * `ppk`: public key of the Producer\r\n```",
+              "createdAt": "2025-09-22T17:06:58Z",
+              "updatedAt": "2025-09-22T17:06:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9dy_",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:07:15Z",
+          "updatedAt": "2025-09-22T17:07:16Z",
+          "comments": [
+            {
+              "originalPosition": 117,
+              "body": "```suggestion\r\n * `salt` : Optional salt for key derivation\r\n```",
+              "createdAt": "2025-09-22T17:07:16Z",
+              "updatedAt": "2025-09-22T17:07:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9d9v",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:07:27Z",
+          "updatedAt": "2025-09-22T17:07:28Z",
+          "comments": [
+            {
+              "originalPosition": 118,
+              "body": "```suggestion\r\n * `info` : Optional info for key derivation\r\n```",
+              "createdAt": "2025-09-22T17:07:27Z",
+              "updatedAt": "2025-09-22T17:07:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9fCF",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:08:16Z",
+          "updatedAt": "2025-09-22T17:08:16Z",
+          "comments": [
+            {
+              "originalPosition": 125,
+              "body": "```suggestion\r\ndef pkdsVerify(ppk, rpk, msg, salt =b\"\", info =b\"\", signature)\r\n```",
+              "createdAt": "2025-09-22T17:08:16Z",
+              "updatedAt": "2025-09-22T17:08:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9k0N",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:13:14Z",
+          "updatedAt": "2025-09-22T17:13:14Z",
+          "comments": [
+            {
+              "originalPosition": 133,
+              "body": "```suggestion\r\n      return 0\r\n```",
+              "createdAt": "2025-09-22T17:13:14Z",
+              "updatedAt": "2025-09-22T17:13:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9lAR",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:13:27Z",
+          "updatedAt": "2025-09-22T17:13:27Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "```suggestion\r\n    return 1\r\n```",
+              "createdAt": "2025-09-22T17:13:27Z",
+              "updatedAt": "2025-09-22T17:13:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9l8V",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:14:21Z",
+          "updatedAt": "2025-09-22T17:14:22Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "The way I would expect the verify function to work is that it returns 1 upon signature verification success and 0 otherwise.",
+              "createdAt": "2025-09-22T17:14:22Z",
+              "updatedAt": "2025-09-22T17:14:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9vOG",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:22:51Z",
+          "updatedAt": "2025-09-22T17:22:51Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "```suggestion\r\n* `kdfp` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `kdfp` object MUST contain the following members:\r\n```",
+              "createdAt": "2025-09-22T17:22:51Z",
+              "updatedAt": "2025-09-22T17:22:51Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9v7F",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:23:26Z",
+          "updatedAt": "2025-09-22T17:23:26Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "key derivation function parameters = kdfp \r\nrelates to https://github.com/paulbastian/draft-bastian-jose-dvs/issues/23",
+              "createdAt": "2025-09-22T17:23:26Z",
+              "updatedAt": "2025-09-22T17:23:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9zmW",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:26:58Z",
+          "updatedAt": "2025-09-22T17:26:58Z",
+          "comments": [
+            {
+              "originalPosition": 125,
+              "body": "The JWS will carry base64url encoded bytes for salt and info. But the function will use bytes.",
+              "createdAt": "2025-09-22T17:26:58Z",
+              "updatedAt": "2025-09-22T17:26:59Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7B9_Am",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-22T17:37:18Z",
+          "updatedAt": "2025-09-22T17:37:18Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "Should we define info as text only and not allow byte to avoid base64url twice encoding?",
+              "createdAt": "2025-09-22T17:37:18Z",
+              "updatedAt": "2025-09-22T17:37:19Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
