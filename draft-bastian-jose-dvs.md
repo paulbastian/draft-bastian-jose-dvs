@@ -144,7 +144,7 @@ Input:
 Function:
 
 ~~~
-def pkdsSign(skS, pkR, msg, salt= "", info = "")
+def pkdsSign(ppk, rpk, msg, salt, info)
 
     dh =  DH(skS, pkR)
     prk = Extract(salt, dh)
