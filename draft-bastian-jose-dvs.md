@@ -139,7 +139,7 @@ Input:
  * `pkR`: public key of the Recipient
  * `msg`: JWS Signing Input
  * `salt` : Optional salt for key derivation
- * `info` : optional info for key derivation (default="")
+ * `info` : Optional info for key derivation
 
 Function:
 
