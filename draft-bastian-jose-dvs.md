@@ -210,7 +210,7 @@ The `pkds` Header Parameter value MUST be a JSON object with the following field
 
   Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the key information in `rpk`.
 
-* `params` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `params` object MUST contain the following members:
+* `kdfp` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `kdfp` object MUST contain the following members:
   * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
   * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
 
