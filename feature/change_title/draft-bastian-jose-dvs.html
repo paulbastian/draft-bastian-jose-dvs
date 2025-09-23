@@ -1409,10 +1409,10 @@ def pkdsSign(ppk, rpk, msg, salt, info)
             <p id="section-5.2-3.3.1"><code>msg</code>: JWS Signing Input<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-3.4">
-            <p id="section-5.2-3.4.1"><code>salt</code> : optional salt for key derivation (default="")<a href="#section-5.2-3.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-3.4.1"><code>salt</code> : Optional salt for key derivation<a href="#section-5.2-3.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-3.5">
-            <p id="section-5.2-3.5.1"><code>info</code> : optional info for key derivation (default="")<a href="#section-5.2-3.5.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-3.5.1"><code>info</code> : Optional info for key derivation<a href="#section-5.2-3.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-3.6">
             <p id="section-5.2-3.6.1"><code>signature</code> : the Message Authentication Code<a href="#section-5.2-3.6.1" class="pilcrow">¶</a></p>
@@ -1421,7 +1421,7 @@ def pkdsSign(ppk, rpk, msg, salt, info)
 <p id="section-5.2-4">Function:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-5">
 <pre>
-def pkdsVerify(skR, pkS, msg, salt = "", info = "", signature)
+def pkdsVerify(skR, pkS, msg, signature, salt, info)
 
     dh =  DH(skR, pkS)
     prk = Extract(salt, dh)
