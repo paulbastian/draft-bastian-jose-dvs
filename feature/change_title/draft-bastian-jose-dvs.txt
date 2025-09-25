@@ -5,11 +5,11 @@
 Javascript Object Signing and Encryption                      P. Bastian
 Internet-Draft                                                  M. Kraus
 Intended status: Informational                      Bundesdruckerei GmbH
-Expires: 27 March 2026                                      S. Santesson
+Expires: 29 March 2026                                      S. Santesson
                                                          IDsec Solutions
                                                            P. L. Altmann
                                        The Agency for Digital Government
-                                                       23 September 2025
+                                                       25 September 2025
 
 
                     Public Key Derived HMAC for JOSE
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 March 2026.
+   This Internet-Draft will expire on 29 March 2026.
 
 Copyright Notice
 
@@ -213,7 +213,7 @@ Table of Contents
 
    Input:
 
-   *  skS: private key of the Producer
+   *  skP: private key of the Producer
 
    *  pkR: public key of the Recipient
 
@@ -225,9 +225,9 @@ Table of Contents
 
    Function:
 
-   def pkdsSign(skS, pkR, msg, salt, info)
+   def pkdsSign(skP, pkR, msg, salt, info)
 
-       dh =  DH(skS, pkR)
+       dh =  DH(skP, pkR)
        prk = Extract(salt, dh)
        k = Expand(prk, info, Nk)
        signature = MacSign(k, msg)
