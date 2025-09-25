@@ -135,7 +135,7 @@ The generation of the public key derived HMAC uses the Producer’s private key,
 
 Input:
 
- * `skS`: private key of the Producer
+ * `skP`: private key of the Producer
  * `pkR`: public key of the Recipient
  * `msg`: JWS Signing Input
  * `salt` : Optional salt for key derivation
@@ -144,9 +144,9 @@ Input:
 Function:
 
 ~~~
-def pkdsSign(skS, pkR, msg, salt, info)
+def pkdsSign(skP, pkR, msg, salt, info)
 
-    dh =  DH(skS, pkR)
+    dh =  DH(skP, pkR)
     prk = Extract(salt, dh)
     k = Expand(prk, info, Nk)
     signature = MacSign(k, msg)
