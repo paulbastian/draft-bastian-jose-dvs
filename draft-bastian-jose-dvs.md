@@ -144,7 +144,7 @@ Input:
 Function:
 
 ~~~
-def pkdsSign(skP, pkR, msg, salt, info)
+def pkdHhmacSign(skP, pkR, msg, salt, info)
 
     dh =  DH(skP, pkR)
     prk = Extract(salt, dh)
@@ -169,7 +169,7 @@ Input:
 Function:
 
 ~~~
-def pkdsVerify(skR, pkS, msg, signature, salt, info)
+def pkdHhmacVerify(skR, pkS, msg, signature, salt, info)
 
     dh =  DH(skR, pkS)
     prk = Extract(salt, dh)
