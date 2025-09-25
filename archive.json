@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-23T01:05:25.024294+00:00",
+  "timestamp": "2025-09-25T01:06:51.976758+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -488,6 +488,37 @@
       "updatedAt": "2025-09-16T07:24:15Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOLDmL8c7NST7c",
+      "title": "Do we need the HKDF salt at all?",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/26",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Could we always set it to the default value?",
+      "createdAt": "2025-09-23T07:54:53Z",
+      "updatedAt": "2025-09-24T10:40:14Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I propose we remove the salt as a parameter.\n\nhttps://datatracker.ietf.org/doc/html/rfc5869#section-3.1 discuss the use or not of a salt. Also the [original paper](https://eprint.iacr.org/2010/264) uses a single salt in the security definition of HKDF. \n\nThe salt must be a fixed random value or NULL. May as well skip it entirely to avoid implementor mistakes.\n\nEDIT: We have a high entropy ikm (ECDH) that is non-uniform. The randomness extractor does not need salt, it just needs to smoothen the randomness to make it uniform and thus suitable for the PRF.",
+          "createdAt": "2025-09-23T10:19:48Z",
+          "updatedAt": "2025-09-23T12:56:04Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also, if we remove salt, then we can remove the hkdf parameter key as well as we only have info left to specify.",
+          "createdAt": "2025-09-24T10:40:14Z",
+          "updatedAt": "2025-09-24T10:40:14Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1352,39 +1383,19 @@
       "labels": [],
       "body": "solves #21  #24 ",
       "createdAt": "2025-09-19T17:47:05Z",
-      "updatedAt": "2025-09-22T17:37:18Z",
+      "updatedAt": "2025-09-23T13:28:56Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "47747d48e049627e46dac7849ce963241b9ad7e0",
       "headRepository": "paulbastian/draft-bastian-jose-dvs",
       "headRefName": "feature/change_title",
-      "headRefOid": "8a03f455776f8e1f0de8262dc859420b1ecca6d9",
+      "headRefOid": "c3244d3c536ed5d2d5989153e538a92d4a733bf1",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
       "reviews": [
-        {
-          "id": "PRR_kwDOLDmL8c7B9CxP",
-          "commit": {
-            "abbreviatedOid": "8a03f45"
-          },
-          "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
-          "state": "COMMENTED",
-          "body": "",
-          "createdAt": "2025-09-22T16:46:53Z",
-          "updatedAt": "2025-09-22T16:46:53Z",
-          "comments": [
-            {
-              "originalPosition": 86,
-              "body": "```suggestion\r\n * `rpk`: public key of the Recipient\r\n```",
-              "createdAt": "2025-09-22T16:46:53Z",
-              "updatedAt": "2025-09-22T16:46:53Z"
-            }
-          ]
-        },
         {
           "id": "PRR_kwDOLDmL8c7B9DWa",
           "commit": {
@@ -1499,9 +1510,9 @@
           "comments": [
             {
               "originalPosition": 97,
-              "body": "```suggestion\r\ndef pkdsSign(ppk, rpk, msg, salt=b\"\", info =b\"\")\r\n```",
+              "body": "```suggestion\r\ndef pkdsSign(ppk, rpk, msg, salt, info)\r\n```",
               "createdAt": "2025-09-22T17:02:50Z",
-              "updatedAt": "2025-09-22T17:02:51Z"
+              "updatedAt": "2025-09-23T07:56:22Z"
             }
           ]
         },
@@ -1639,9 +1650,9 @@
           "comments": [
             {
               "originalPosition": 125,
-              "body": "```suggestion\r\ndef pkdsVerify(ppk, rpk, msg, salt =b\"\", info =b\"\", signature)\r\n```",
+              "body": "```suggestion\r\ndef pkdsVerify(skR, pkS, msg, signature, salt, info)\r\n```",
               "createdAt": "2025-09-22T17:08:16Z",
-              "updatedAt": "2025-09-22T17:08:17Z"
+              "updatedAt": "2025-09-23T07:58:42Z"
             }
           ]
         },
@@ -1782,6 +1793,246 @@
               "body": "Should we define info as text only and not allow byte to avoid base64url twice encoding?",
               "createdAt": "2025-09-22T17:37:18Z",
               "updatedAt": "2025-09-22T17:37:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CG0to",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:09:09Z",
+          "updatedAt": "2025-09-23T07:09:09Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "using pk for both private key and public key is very confusing",
+              "createdAt": "2025-09-23T07:09:09Z",
+              "updatedAt": "2025-09-23T07:09:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CG17u",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:10:53Z",
+          "updatedAt": "2025-09-23T07:10:54Z",
+          "comments": [
+            {
+              "originalPosition": 90,
+              "body": "Good point, should we reference RFC 5869?",
+              "createdAt": "2025-09-23T07:10:54Z",
+              "updatedAt": "2025-09-23T07:10:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CG88K",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:20:07Z",
+          "updatedAt": "2025-09-23T07:20:08Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "if HKDF allows everything, we should not restrict here. we may give an implementation considerations ",
+              "createdAt": "2025-09-23T07:20:07Z",
+              "updatedAt": "2025-09-23T07:20:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CG--1",
+          "commit": {
+            "abbreviatedOid": "c455797"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:22:44Z",
+          "updatedAt": "2025-09-23T07:22:45Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "PKDH-0?\r\n\r\nShould this be the alg name?\r\n\r\n@AltmannPeter @Razumain @paulbastian ",
+              "createdAt": "2025-09-23T07:22:45Z",
+              "updatedAt": "2025-09-23T07:22:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CHDXj",
+          "commit": {
+            "abbreviatedOid": "8a03f45"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:26:42Z",
+          "updatedAt": "2025-09-23T07:26:42Z",
+          "comments": [
+            {
+              "originalPosition": 219,
+              "body": "We should likely remove the requirements column?",
+              "createdAt": "2025-09-23T07:26:42Z",
+              "updatedAt": "2025-09-23T07:26:43Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CHENL",
+          "commit": {
+            "abbreviatedOid": "c455797"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T07:27:39Z",
+          "updatedAt": "2025-09-23T07:27:39Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Should we use HMAC or just MAC in the title?\r\n\r\n@paulbastian @AltmannPeter \u00a0@Razumain ",
+              "createdAt": "2025-09-23T07:27:39Z",
+              "updatedAt": "2025-09-23T07:27:40Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CIr32",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T09:29:52Z",
+          "updatedAt": "2025-09-23T09:29:52Z",
+          "comments": [
+            {
+              "originalPosition": 134,
+              "body": "Had a chat and the consensus is that the raise exception is clearer. Ignore my proposal.",
+              "createdAt": "2025-09-23T09:29:52Z",
+              "updatedAt": "2025-09-23T09:29:52Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CJJ-K",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T10:03:16Z",
+          "updatedAt": "2025-09-23T10:03:17Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "```suggestion\r\n * `skP`: private key of the Producer\r\n```",
+              "createdAt": "2025-09-23T10:03:16Z",
+              "updatedAt": "2025-09-23T10:03:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CJKwY",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T10:04:01Z",
+          "updatedAt": "2025-09-23T10:04:01Z",
+          "comments": [
+            {
+              "originalPosition": 85,
+              "body": "skP aligns better with Producer. skS is for Sender. I prefer we stick with Producer and propose to change the abbr to match.",
+              "createdAt": "2025-09-23T10:04:01Z",
+              "updatedAt": "2025-09-23T10:04:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CJOKq",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T10:07:02Z",
+          "updatedAt": "2025-09-23T10:07:02Z",
+          "comments": [
+            {
+              "originalPosition": 117,
+              "body": "Had a closer look at salts and thought about it a bit more. The reason salts exist in HKDF is for entropy. We do not need it for entropy. \r\n\r\nAlso, when deriving keys from the same input (e.g., key splitting) you need to use the same salt.\r\n\r\nConsequently, it may be better to simply remove the salt altogether from the spec. We do not need it and it introduces a source for error.",
+              "createdAt": "2025-09-23T10:07:02Z",
+              "updatedAt": "2025-09-23T10:07:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CMaIM",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T13:28:15Z",
+          "updatedAt": "2025-09-23T13:28:15Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "@Razumain proposed using text only and avoid byte string. ",
+              "createdAt": "2025-09-23T13:28:15Z",
+              "updatedAt": "2025-09-23T13:28:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CMa0Q",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-23T13:28:56Z",
+          "updatedAt": "2025-09-23T13:28:56Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "I recall we settled on fully specified, no?",
+              "createdAt": "2025-09-23T13:28:56Z",
+              "updatedAt": "2025-09-23T13:28:56Z"
             }
           ]
         }
