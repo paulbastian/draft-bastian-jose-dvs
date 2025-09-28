@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-25T01:06:51.976758+00:00",
+  "timestamp": "2025-09-28T01:13:27.665557+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -519,6 +519,22 @@
           "updatedAt": "2025-09-24T10:40:14Z"
         }
       ]
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOLDmL8c7NxjG3",
+      "title": "Should we define info as text only?",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/issues/27",
+      "state": "OPEN",
+      "author": "paulbastian",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "> Should we define info as text only and not allow byte to avoid base64url twice encoding? \n\n _Originally posted by @AltmannPeter in [#25](https://github.com/paulbastian/draft-bastian-jose-dvs/pull/25/files#r2369579232)_",
+      "createdAt": "2025-09-25T07:32:44Z",
+      "updatedAt": "2025-09-25T07:32:44Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -1383,13 +1399,13 @@
       "labels": [],
       "body": "solves #21  #24 ",
       "createdAt": "2025-09-19T17:47:05Z",
-      "updatedAt": "2025-09-23T13:28:56Z",
+      "updatedAt": "2025-09-25T07:33:13Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "47747d48e049627e46dac7849ce963241b9ad7e0",
       "headRepository": "paulbastian/draft-bastian-jose-dvs",
       "headRefName": "feature/change_title",
-      "headRefOid": "c3244d3c536ed5d2d5989153e538a92d4a733bf1",
+      "headRefOid": "bf4fccff20e77c13ec9d4358c782dfa5c04cd94d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
@@ -2035,6 +2051,139 @@
               "updatedAt": "2025-09-23T13:28:56Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CrIzk",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:05:37Z",
+          "updatedAt": "2025-09-25T07:05:37Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "rename to pkdHhmacSign?",
+              "createdAt": "2025-09-25T07:05:37Z",
+              "updatedAt": "2025-09-25T07:05:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7Cref9",
+          "commit": {
+            "abbreviatedOid": "716dd09"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:28:21Z",
+          "updatedAt": "2025-09-25T07:28:21Z",
+          "comments": [
+            {
+              "originalPosition": 117,
+              "body": "agreed, but let's do it in a separate PR",
+              "createdAt": "2025-09-25T07:28:21Z",
+              "updatedAt": "2025-09-25T07:28:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CrfpU",
+          "commit": {
+            "abbreviatedOid": "c455797"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:29:32Z",
+          "updatedAt": "2025-09-25T07:29:32Z",
+          "comments": [
+            {
+              "originalPosition": 224,
+              "body": "further discussion at #12 ",
+              "createdAt": "2025-09-25T07:29:32Z",
+              "updatedAt": "2025-09-25T07:29:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CrgXv",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:30:21Z",
+          "updatedAt": "2025-09-25T07:30:21Z",
+          "comments": [
+            {
+              "originalPosition": 117,
+              "body": "Further discussion in #26 ",
+              "createdAt": "2025-09-25T07:30:21Z",
+              "updatedAt": "2025-09-25T07:30:21Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7Crh6E",
+          "commit": {
+            "abbreviatedOid": "c3244d3"
+          },
+          "author": "mickrau",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:32:18Z",
+          "updatedAt": "2025-09-25T07:32:18Z",
+          "comments": [
+            {
+              "originalPosition": 97,
+              "body": "fixed",
+              "createdAt": "2025-09-25T07:32:18Z",
+              "updatedAt": "2025-09-25T07:32:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7Crigp",
+          "commit": {
+            "abbreviatedOid": "bf4fccf"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T07:32:57Z",
+          "updatedAt": "2025-09-25T07:32:57Z",
+          "comments": [
+            {
+              "originalPosition": 172,
+              "body": "Moved to new issue: #27 ",
+              "createdAt": "2025-09-25T07:32:57Z",
+              "updatedAt": "2025-09-25T07:32:58Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7CritY",
+          "commit": {
+            "abbreviatedOid": "bf4fccf"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-25T07:33:13Z",
+          "updatedAt": "2025-09-25T07:33:13Z",
+          "comments": []
         }
       ]
     }
