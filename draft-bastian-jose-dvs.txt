@@ -5,21 +5,21 @@
 Javascript Object Signing and Encryption                      P. Bastian
 Internet-Draft                                                  M. Kraus
 Intended status: Informational                      Bundesdruckerei GmbH
-Expires: 5 March 2026                                       S. Santesson
+Expires: 3 April 2026                                       S. Santesson
                                                          IDsec Solutions
                                                            P. L. Altmann
                                        The Agency for Digital Government
-                                                        1 September 2025
+                                                       30 September 2025
 
 
-                Designated Verifier Signatures for JOSE
+                    Public Key Derived HMAC for JOSE
                      draft-bastian-jose-dvs-latest
 
 Abstract
 
-   This specification describes how to use a Diffie-Hellman key
-   agreement (DH-KA) protocol and a key derivation function (KDF) to
-   derive a symmetric Message Authentication Code (MAC) key using
+   This specification defines the use of a Diffie-Hellman key agreement
+   (DH-KA) protocol combined with a key derivation function (KDF) to
+   derive a symmetric Message Authentication Code (MAC) key from public
    information conveyed within a JSON Web Signature (JWS).
 
 About This Document
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 March 2026.
+   This Internet-Draft will expire on 3 April 2026.
 
 Copyright Notice
 
@@ -76,22 +76,22 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  Terminology
-   4.  The "pkds" Header Parameter
-     4.1.  Syntax and semantics
-   5.  Cryptographic Dependencies
-   6.  Designated Verifier Signatures
-     6.1.  Signature Generation
-     6.2.  Signature Verification
-     6.3.  Signature Suites
-   7.  Designated Verifier Signatures for JOSE
-     7.1.  Example JWT
-   8.  Security Considerations
-     8.1.  Replay Attack Detection
-     8.2.  Limited Repudiability
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   4.  Cryptographic Dependencies
+   5.  Public Key Derived HMAC
+     5.1.  Signature Generation
+     5.2.  Signature Verification
+     5.3.  Signature Suites
+   6.  Public Key Derived HMAC for JOSE
+     6.1.  The "pkds" Header Parameter
+       6.1.1.  Syntax and semantics
+     6.2.  Example JWT (*TODO*)
+   7.  Security Considerations
+     7.1.  Replay Attack Detection
+     7.2.  Limited Repudiability
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Acknowledgments
    Appendix B.  Appendix A.  JSON Schema for the "pkds" Header
            Parameter
@@ -152,52 +152,9 @@ Table of Contents
       MAC key via information in the JWS, and validates the JWS using
       the MAC key according to [RFC7515].
 
-4.  The "pkds" Header Parameter
+4.  Cryptographic Dependencies
 
-   The pkds protected header parameter specifies the inputs needed to
-   derive a symmetric key for MAC computation using a key agreement and
-   derivation scheme.  Its value is a JSON object that includes
-   identifiers, public keys, and algorithm-specific parameters relevant
-   to the derivation.
-
-4.1.  Syntax and semantics
-
-   The pkds Header Parameter value MUST be a JSON object with the
-   following fields:
-
-   *  rpk (object, REQUIRED): The Recipient's public key used in DH-KA.
-      The rpk object MUST contain at least one key claim as defined in
-      Section 4.1 of [RFC7515].
-
-      Implementations MUST reject a JWS if the rpk key cannot be
-      resolved unambiguously at validation time.
-
-   *  ppk (object, OPTIONAL): The JWS Producer’s public key used in DH-
-      KA.  The ppk object MUST contain at least one key claim as defined
-      in Section 4.1 of [RFC7515].
-
-      Implementations MUST reject a JWS if the ppk key cannot be
-      resolved unambiguously at validation time or is incompatible with
-      the key information in rpk.
-
-   *  params (object, OPTIONAL): Contains the inputs to the key
-      derivation function specified by the alg name.  The params object
-      MUST contain the following members:
-
-      -  info (string, OPTIONAL): Context- and application-specific
-         information used as the info parameter to the KDF.
-
-      -  salt (string, OPTIONAL): A base64url-encoded non-secret value
-         used as the salt input to the KDF.  If omitted, the KDF-
-         specific default applies.  If present, the decoded salt MUST be
-         valid for use with the KDF defined by the alg name.
-
-   For a machine-readable definition of these fields, see the JSON
-   Schema in Appendix A (Appendix B).
-
-5.  Cryptographic Dependencies
-
-   DVS rely on the following primitives:
+   This specification relies on the following primitives:
 
    *  A Diffie-Hellman Key Agreement (KA-DH), for example ECKA-DH
       defined in [BSI-TR-03111]:
@@ -232,10 +189,9 @@ Table of Contents
 
       -  Nk: The length in bytes of key k.
 
-6.  Designated Verifier Signatures
+5.  Public Key Derived HMAC
 
-   A designated verifier signature requires three components for an
-   algorithm:
+   A public key derived HMAC requires three components for an algorithm:
 
    1.  a Diffie-Hellman Key Agreement (DHKA)
 
@@ -243,177 +199,208 @@ Table of Contents
 
    3.  a Message Authentication Code algorithm (MAC)
 
-   In general, these parameters are chosen by the Signing Party.  These
-   parameters need to be communicated to the Verifying Party before the
-   generation of a Designated Verifier Signature.
+   In general, these parameters are chosen by the Producer.  These
+   parameters need to be communicated to the Recipient to be able to
+   verify the HMAC.
 
-6.1.  Signature Generation
+5.1.  Signature Generation
 
-   The generation of the Designated Verifier Signature takes the private
-   key of the Signing Party, the public key of the Verifying Party and
-   the message as inputs.  The retrieval and communication of the
-   Verifying Party's public key is out of scope of this specification
-   and subject to the implementing protocols.
+   The generation of the public key derived HMAC uses the Producer’s
+   private key, the Recipient’s public key, and the message as inputs,
+   along with optional parameters.  The retrieval and communication of
+   the Recipient's public key is out of scope of this specification and
+   subject to the implementing protocols.
 
    Input:
 
-   *  skS: private key of the Signing Party
+   *  skP: private key of the Producer
 
-   *  pkR: public key of the Verifying Party
+   *  pkR: public key of the Recipient
 
    *  msg: JWS Signing Input
 
-   *  salt : Salt for key derivation
+   *  salt : Optional salt for key derivation
 
-   *  info : optional info for key derivation
+   *  info : Optional info for key derivation
 
    Function:
 
-   def dvsSign(skS, pkR, msg, salt= "", info = "DVS-1")
+   def pkdHhmacSign(skP, pkR, msg, salt, info)
 
-       dh =  DH(skS, pkR)
+       dh =  DH(skP, pkR)
        prk = Extract(salt, dh)
        k = Expand(prk, info, Nk)
        signature = MacSign(k, msg)
        return signature
 
-6.2.  Signature Verification
+5.2.  Signature Verification
 
-   The generation of the Designated Verifier Signature takes the private
-   key of the Signing Party, the public key of the Verifying Party and
-   the message as inputs.  The retrieval and communication of the
-   Verifying Party's public key is out of scope of this specification
-   and subject to the implementing protocols.
+   The generation of the public key derived HMAC uses the Recipient's
+   private key, the Producer's public key, and the message as inputs,
+   along with optional parameters.
 
    Input:
 
-   *  skR: private key of the Verifying Party
+   *  skR: private key of the Recipient
 
-   *  pkS: public key of the Signing Party
+   *  pkS: public key of the Producer
 
    *  msg: JWS Signing Input
 
-   *  salt : Salt for key derivation
+   *  salt : Optional salt for key derivation
 
-   *  info : optional info for key derivation
+   *  info : Optional info for key derivation
 
    *  signature : the Message Authentication Code
 
    Function:
 
-   def dvsVerify(skR, pkS, msg, salt = "", info = "DVS-1", signature)
+   def pkdHhmacVerify(skR, pkS, msg, signature, salt, info)
 
        dh =  DH(skR, pkS)
        prk = Extract(salt, dh)
        k = Expand(prk, info, Nk)
        signature' = MacSign(k, msg)
        if signature != signature':
-       raise Exception("Designated Verifier Signature invalid")
+         raise Exception("Public key derived HMAC invalid")
        return
 
-6.3.  Signature Suites
+5.3.  Signature Suites
 
-   Algorithms MUST follow the naming DVS-<DHKA>-<KDF>-<MAC>.
+   Algorithms MUST follow the naming **TODO**.
 
-7.  Designated Verifier Signatures for JOSE
+6.  Public Key Derived HMAC for JOSE
 
-   Designated Verifier Signatures behave like a digital signature as
-   described in Section 3 of [RFC7518] and are intended for use in JSON
-   Web Signatures (JWS) as described in [RFC7515].  The Generating Party
-   performs the Message Signature or MAC Computation as defined by
-   Section 5.1 of [RFC7515].  The Verifying Party performs the Message
-   Signature or MAC Validation as defined by Section 5.2 of [RFC7515].
+   Public Key Derived HMAC behave like a digital signature as described
+   in Section 3 of [RFC7518] and are intended for use in JSON Web
+   Signatures (JWS) as described in [RFC7515].  The Producer performs
+   the Message Signature or MAC Computation as defined by Section 5.1 of
+   [RFC7515].  The Recipient performs the Message Signature or MAC
+   Validation as defined by Section 5.2 of [RFC7515].
 
-   The following JWS headers are used to convey Designated Verifier
-   Signatures for JOSE:
+   The following JWS headers are used to convey Public Key Derived HMAC
+   for JOSE:
 
    *  alg : REQUIRED.  The algorithm parameter describes the chosen
-      signature suite, for example the ones described in
-      (#generic_suites).
+      signature suite, for example the ones described in Suites
+      (Section 5.3).
 
-   *  rpk : REQUIRED.  The rpk (recipient public key) parameter
-      represents the encoded public key of the Verifying Party that was
-      used in the DHKA algorithm as a JSON Web Key according to
-      [RFC7517].  This parameter MUST be present.
+   *  pkds : REQUIRED.  The pkds (Public key derived secret) parameter
+      specifies the inputs needed to derive a symmetric key for MAC PKDS
+      Headermake (Section 6.1).
 
-   *  nonce : OPTIONAL.  The nonce may be provided by the Verifying
-      Party additional to it's public key and ensure additional
-      freshness of the signature.  If provided, the Signing Party SHOULD
-      add the nonce to the header.
+   *  nonce : OPTIONAL.  The nonce may be provided by the Recipient
+      additional to it's public key and ensure additional freshness of
+      the signature.  If provided, the Producer SHOULD add the nonce to
+      the header.
 
-   The Signing Party may use existing JWS header parameters like x5c,
-   jwk or kid to represent or reference it's public key according to
-   [RFC7517].
+6.1.  The "pkds" Header Parameter
 
-7.1.  Example JWT
+   The pkds protected header parameter specifies the inputs needed to
+   derive a symmetric key for MAC computation using a key agreement and
+   derivation scheme.  Its value is a JSON object that includes
+   identifiers, public keys, and algorithm-specific parameters relevant
+   to the derivation.
+
+6.1.1.  Syntax and semantics
+
+   The pkds Header Parameter value MUST be a JSON object with the
+   following fields:
+
+   *  rpk (object, REQUIRED): The Recipient's public key used in DH-KA.
+      The rpk object MUST contain at least one key claim as defined in
+      Section 4.1 of [RFC7515].
+
+      Implementations MUST reject a JWS if the rpk key cannot be
+      resolved unambiguously at validation time.
+
+   *  ppk (object, OPTIONAL): The JWS Producer’s public key used in DH-
+      KA.  The ppk object MUST contain at least one key claim as defined
+      in Section 4.1 of [RFC7515].
+
+      Implementations MUST reject a JWS if the ppk key cannot be
+      resolved unambiguously at validation time or is incompatible with
+      the key information in rpk.
+
+   *  kdfp (object, OPTIONAL): Contains the inputs to the key derivation
+      function specified by the alg name.  The kdfp object MUST contain
+      the following members:
+
+      -  info (string, OPTIONAL): Context- and application-specific
+         information used as the info parameter to the KDF.
+
+      -  salt (string, OPTIONAL): A base64url-encoded non-secret value
+         used as the salt input to the KDF.  If omitted, the KDF-
+         specific default applies.  If present, the decoded salt MUST be
+         valid for use with the KDF defined by the alg name.
+
+   For a machine-readable definition of these fields, see the JSON
+   Schema in Appendix A (Appendix B).
+
+6.2.  Example JWT (*TODO*)
 
    The JWT/JWS header:
 
    {
        "typ" : "JWT",
-       "alg" : "DVS-P256-SHA256-HS256",
-       "jwk" : <JWK of the Signing Party>,
-       "rpk" : <JWK of Verifying Party>
+       **TODO**
    }
 
-   The JWT/JWS payload:
+   The JWT/JWS payload (TODO!:
 
    {
-       "iss" : "https://example.as.com",
-       "iat" : "1701870613",
-       "given_name" : "Erika",
-       "family_name" : "Mustermann"
+      **TODO**
    }
 
    The JWT/JWS signature:
 
    base64-encoded MAC
 
-   This specification described instantiations of Designated Verifier
-   Signatures using specific algorithm combinations:
+   This specification described instantiations of Public Key Derived
+   HMAC using specific algorithm combinations:
 
 +-----------------------+-----------------------------+----------------+
 | Algorithm Name        | Algorithm Description       |                |
 |                       |                             | Requirements   |
 +-----------------------+-----------------------------+----------------+
-| DVS-P256-SHA256-HS256 | ECDH using NIST P-256,      |   Optional     |
+| **TODO**              | ECDH using NIST P-256,      |   Optional     |
 |                       | HKDF using SHA-256 and      |                |
 |                       | HMAC using SHA-256          |                |
 +-----------------------+-----------------------------+----------------+
 
-8.  Security Considerations
+7.  Security Considerations
 
-8.1.  Replay Attack Detection
+7.1.  Replay Attack Detection
 
-   Verifying party MUST ensure the freshness of signatures by utilizing
+   Recipient MUST ensure the freshness of signatures by utilizing
    ephemeral keys in rpk or by providing a nonce for nonce.
 
-8.2.  Limited Repudiability
+7.2.  Limited Repudiability
 
-   A malicious verifying party can weaken the repudiability property by
+   A malicious Recipient can weaken the repudiability property by
    involving certain third parties in the protocol steps.
 
    *  One method is to have a third party observe all protocol steps so
       that third party can be sure that the signature originates by the
-      signer.
+      Producer.
 
-   *  Another method requires that the verifying party's public key is a
+   *  Another method requires that the Recipient's public key is a
       shared key that has previously been calculated with the keys of
       certain specific third parties so that the proof of authenticity
       can be done with Multi Party Computation involving all parties
       (see [TLS-NOTARY]).
 
-9.  IANA Considerations
+8.  IANA Considerations
 
    Define:
 
-   *  define new rpk header parameter
+   *  define new pkds header parameter
 
-   *  alg values for DVS-P256-SHA256-HS256 and some more
+   *  alg values for *TODO* and some more
 
-10.  References
+9.  References
 
-10.1.  Normative References
+9.1.  Normative References
 
    [BSI-TR-03111]
               "Technical Guideline BSI TR-03111: Elliptic Curve
@@ -455,7 +442,7 @@ Table of Contents
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
               February 2022, <https://www.rfc-editor.org/rfc/rfc9180>.
 
-10.2.  Informative References
+9.2.  Informative References
 
    [ISO-18013-5]
               "ISO/IEC 18013-5:2021, Personal identification — ISO-
