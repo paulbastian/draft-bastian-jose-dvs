@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:13:27.665557+00:00",
+  "timestamp": "2025-10-02T01:05:10.437000+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -501,22 +501,50 @@
       "labels": [],
       "body": "Could we always set it to the default value?",
       "createdAt": "2025-09-23T07:54:53Z",
-      "updatedAt": "2025-09-24T10:40:14Z",
+      "updatedAt": "2025-10-01T18:28:50Z",
       "closedAt": null,
       "comments": [
         {
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "I propose we remove the salt as a parameter.\n\nhttps://datatracker.ietf.org/doc/html/rfc5869#section-3.1 discuss the use or not of a salt. Also the [original paper](https://eprint.iacr.org/2010/264) uses a single salt in the security definition of HKDF. \n\nThe salt must be a fixed random value or NULL. May as well skip it entirely to avoid implementor mistakes.\n\nEDIT: We have a high entropy ikm (ECDH) that is non-uniform. The randomness extractor does not need salt, it just needs to smoothen the randomness to make it uniform and thus suitable for the PRF.",
           "createdAt": "2025-09-23T10:19:48Z",
           "updatedAt": "2025-09-23T12:56:04Z"
         },
         {
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Also, if we remove salt, then we can remove the hkdf parameter key as well as we only have info left to specify.",
           "createdAt": "2025-09-24T10:40:14Z",
           "updatedAt": "2025-09-24T10:40:14Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Any input on the option to remove the salt? It would also solve https://github.com/paulbastian/draft-bastian-jose-dvs/issues/23 if we did not need a salt since we can then drop the params altogether.\n\nYou could then have something like:\n\n```\n{\n  \"typ\":\"JWT\",\n  \"alg\":\"ECDH-P256-HKDF-SHA256\",\n  \"pkds\":{\n    \"pkS\":{\n      \"jwk\":{\n        \"kty\":\"EC\",\n        \"crv\":\"P-256\",\n        \"x\":\"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU\",\n        \"y\":\"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0\"\n      }\n    },\n    \"pkR\":{\n      \"jwk\":{\n        \"kty\":\"EC\",\n        \"crv\":\"P-256\",\n        \"x\":\"vWV4vmRT8HV9QAkbZJAWrvjOV0NfNOzkzq92apq8yjk\",\n        \"y\":\"XGJRplhubKDv6cFA7e9-yn7F89UUwt57JVLAOS1tpXE\"\n      }\n    },\n    \"info\":\"HS256-PKDS-v1\"\n  }\n}",
+          "createdAt": "2025-10-01T08:35:18Z",
+          "updatedAt": "2025-10-01T08:38:31Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "I'm fine with removing the salt",
+          "createdAt": "2025-10-01T17:36:18Z",
+          "updatedAt": "2025-10-01T17:36:18Z"
+        },
+        {
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "body": "The alg is missing HMAC, or abbreviate altogether, although that's not the scope of this issue :)\n\n> Any input on the option to remove the salt? It would also solve https://github.com/paulbastian/draft-bastian-jose-dvs/issues/23 if we did not need a salt since we can then drop the params altogether.\n> \n> You could then have something like:\n> \n> ```\n> {\n>   \"typ\":\"JWT\",\n>   \"alg\":\"ECDH-P256-HKDF-SHA256\",\n>   \"pkds\":{\n>     \"pkS\":{\n>       \"jwk\":{\n>         \"kty\":\"EC\",\n>         \"crv\":\"P-256\",\n>         \"x\":\"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU\",\n>         \"y\":\"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0\"\n>       }\n>     },\n>     \"pkR\":{\n>       \"jwk\":{\n>         \"kty\":\"EC\",\n>         \"crv\":\"P-256\",\n>         \"x\":\"vWV4vmRT8HV9QAkbZJAWrvjOV0NfNOzkzq92apq8yjk\",\n>         \"y\":\"XGJRplhubKDv6cFA7e9-yn7F89UUwt57JVLAOS1tpXE\"\n>       }\n>     },\n>     \"info\":\"HS256-PKDS-v1\"\n>   }\n> }\n\n",
+          "createdAt": "2025-10-01T17:38:21Z",
+          "updatedAt": "2025-10-01T17:38:21Z"
+        },
+        {
+          "author": "AltmannPeter",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I would prefer we just use info since we do not have any other kd params values. \n\n@paulbastian I will add HS256 to the alg name once we settle the kd params topic.",
+          "createdAt": "2025-10-01T18:28:50Z",
+          "updatedAt": "2025-10-01T18:28:50Z"
         }
       ]
     },
@@ -1392,24 +1420,26 @@
       "id": "PR_kwDOLDmL8c6pjilT",
       "title": "rename title, update terminology",
       "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/25",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mickrau",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "solves #21  #24 ",
       "createdAt": "2025-09-19T17:47:05Z",
-      "updatedAt": "2025-09-25T07:33:13Z",
+      "updatedAt": "2025-09-30T09:39:18Z",
       "baseRepository": "paulbastian/draft-bastian-jose-dvs",
       "baseRefName": "main",
       "baseRefOid": "47747d48e049627e46dac7849ce963241b9ad7e0",
       "headRepository": "paulbastian/draft-bastian-jose-dvs",
       "headRefName": "feature/change_title",
       "headRefOid": "bf4fccff20e77c13ec9d4358c782dfa5c04cd94d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-30T09:39:17Z",
+      "mergedAt": "2025-09-30T09:39:17Z",
+      "mergedBy": "AltmannPeter",
+      "mergeCommit": {
+        "oid": "bc6876beaf7213be653cd00b7afe2e31213ddd8b"
+      },
       "comments": [],
       "reviews": [
         {
@@ -1418,7 +1448,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T16:47:14Z",
@@ -1438,7 +1468,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T16:51:44Z",
@@ -1458,7 +1488,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T16:52:49Z",
@@ -1478,7 +1508,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T16:55:58Z",
@@ -1498,7 +1528,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T16:56:47Z",
@@ -1518,7 +1548,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:02:50Z",
@@ -1538,7 +1568,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:03:06Z",
@@ -1558,7 +1588,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:03:26Z",
@@ -1578,7 +1608,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:06:37Z",
@@ -1598,7 +1628,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:06:58Z",
@@ -1618,7 +1648,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:07:15Z",
@@ -1638,7 +1668,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:07:27Z",
@@ -1658,7 +1688,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:08:16Z",
@@ -1678,7 +1708,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:13:14Z",
@@ -1698,7 +1728,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:13:27Z",
@@ -1718,7 +1748,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:14:21Z",
@@ -1738,7 +1768,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:22:51Z",
@@ -1758,7 +1788,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:23:26Z",
@@ -1778,7 +1808,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:26:58Z",
@@ -1798,7 +1828,7 @@
             "abbreviatedOid": "8a03f45"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-22T17:37:18Z",
@@ -1938,7 +1968,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T09:29:52Z",
@@ -1958,7 +1988,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T10:03:16Z",
@@ -1978,7 +2008,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T10:04:01Z",
@@ -1998,7 +2028,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T10:07:02Z",
@@ -2018,7 +2048,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T13:28:15Z",
@@ -2038,7 +2068,7 @@
             "abbreviatedOid": "c3244d3"
           },
           "author": "AltmannPeter",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-09-23T13:28:56Z",
@@ -2183,6 +2213,32 @@
           "body": "",
           "createdAt": "2025-09-25T07:33:13Z",
           "updatedAt": "2025-09-25T07:33:13Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7Dt7Im",
+          "commit": {
+            "abbreviatedOid": "bf4fccf"
+          },
+          "author": "AltmannPeter",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-30T09:38:00Z",
+          "updatedAt": "2025-09-30T09:38:00Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLDmL8c7Dt7aO",
+          "commit": {
+            "abbreviatedOid": "bf4fccf"
+          },
+          "author": "Razumain",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-09-30T09:38:15Z",
+          "updatedAt": "2025-09-30T09:38:15Z",
           "comments": []
         }
       ]
