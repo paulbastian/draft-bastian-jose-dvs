@@ -210,9 +210,7 @@ The `pkds` Header Parameter value MUST be a JSON object with the following field
 
   Implementations MUST reject a JWS if the `ppk` key cannot be resolved unambiguously at validation time or is incompatible with the key information in `rpk`.
 
-* `kdfp` (object, OPTIONAL): Contains the inputs to the key derivation function specified by the `alg` name. The `kdfp` object MUST contain the following members:
-  * `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
-  * `salt` (string, OPTIONAL): A base64url-encoded non-secret value used as the `salt` input to the KDF. If omitted, the KDF-specific default applies. If present, the decoded salt MUST be valid for use with the KDF defined by the `alg` name.
+* `info` (string, OPTIONAL): Context- and application-specific information used as the info parameter to the KDF.
 
 For a machine-readable definition of these fields, see the JSON Schema in [Appendix A](#appendix-a).
 
@@ -224,8 +222,27 @@ The JWT/JWS header:
 
 ~~~
 {
-    "typ" : "JWT",
-    **TODO**
+  "typ":"JWT",
+  "alg":"ECDH-P256+HKDF-SHA256+HS256",
+  "pkds":{
+    "pkS":{
+      "jwk":{
+        "kty":"EC",
+        "crv":"P-256",
+        "x":"f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
+        "y":"x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0"
+      }
+    },
+    "pkR":{
+      "jwk":{
+        "kty":"EC",
+        "crv":"P-256",
+        "x":"vWV4vmRT8HV9QAkbZJAWrvjOV0NfNOzkzq92apq8yjk",
+        "y":"XGJRplhubKDv6cFA7e9-yn7F89UUwt57JVLAOS1tpXE"
+      }
+    },
+    "info":"PKDS-v1"
+  }
 }
 ~~~
 
@@ -233,7 +250,8 @@ The JWT/JWS payload (TODO!:
 
 ~~~
 {
-   **TODO**
+  "sub": "1234567890",
+  "iat": 1516239022
 }
 ~~~
 
@@ -246,14 +264,13 @@ base64-encoded MAC
 This specification described instantiations of Public Key Derived HMAC using specific algorithm combinations:
 
 ~~~ ascii-art
-+-----------------------+-----------------------------+----------------+
-| Algorithm Name        | Algorithm Description       |                |
-|                       |                             | Requirements   |
-+-----------------------+-----------------------------+----------------+
-| **TODO**              | ECDH using NIST P-256,      |   Optional     |
-|                       | HKDF using SHA-256 and      |                |
-|                       | HMAC using SHA-256          |                |
-+-----------------------+-----------------------------+----------------+
++-------------------------------+--------------------------+----------------+
+| Algorithm Name                | Algorithm Description    | Requirements   |
++-------------------------------+--------------------------+----------------+
+| "ECDH-P256+HKDF-SHA256+HS256" | ECDH using NIST P-256,   |   Optional     |
+|                               | HKDF using SHA-256, and  |                |
+|                               | HMAC using SHA-256       |                |
++-------------------------------+--------------------------+----------------+
 ~~~
 
 # Security Considerations
