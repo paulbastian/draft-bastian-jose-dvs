@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-02T01:05:10.437000+00:00",
+  "timestamp": "2025-10-05T01:12:44.293464+00:00",
   "repo": "paulbastian/draft-bastian-jose-dvs",
   "labels": [
     {
@@ -2239,6 +2239,46 @@
           "body": "",
           "createdAt": "2025-09-30T09:38:15Z",
           "updatedAt": "2025-09-30T09:38:15Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOLDmL8c6ruzER",
+      "title": "Update draft-bastian-jose-dvs.md",
+      "url": "https://github.com/paulbastian/draft-bastian-jose-dvs/pull/28",
+      "state": "OPEN",
+      "author": "AltmannPeter",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "jose examples and table update",
+      "createdAt": "2025-10-02T09:46:09Z",
+      "updatedAt": "2025-10-03T10:18:22Z",
+      "baseRepository": "paulbastian/draft-bastian-jose-dvs",
+      "baseRefName": "main",
+      "baseRefOid": "bc6876beaf7213be653cd00b7afe2e31213ddd8b",
+      "headRepository": "paulbastian/draft-bastian-jose-dvs",
+      "headRefName": "jose-examples",
+      "headRefOid": "f4e7de0a075bd6a8d05d65830b8df43e14a03b50",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLDmL8c7EmPHu",
+          "commit": {
+            "abbreviatedOid": "f4e7de0"
+          },
+          "author": "paulbastian",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-03T10:18:22Z",
+          "updatedAt": "2025-10-03T10:18:22Z",
           "comments": []
         }
       ]
